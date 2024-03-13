@@ -1,0 +1,15 @@
+{
+  "name": "edicehaven",
+  "version": "1.0.0",
+  "description": "File Structure:\r edicehaven\r - front end: React UI and all front end dependencies\r - backend: Server side code. models, controllers and routes\r - upload: image uploads\r - node_modules: Server dependencies Express, mongoose\r - package.json: server package.json\r - .env: Environment variable - mongoDB URL, JWT Secret, ...",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "Queenie",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
