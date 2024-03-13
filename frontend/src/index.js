@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Home from './home/Home'
 import About from './aboutPage/About'
+import Contact from './contactPage/Contact'
 import reportWebVitals from './reportWebVitals';
 
 import 'swiper/css';
@@ -30,10 +31,8 @@ const router = createBrowserRouter([
     element: <App/>,
     children:[
       {path:"/", element:<Home/>},
-      {
-        path: "/about",
-        element: <About/>
-      }
+      {path: "/about", element: <About/>},
+      {path: "/contact",element: <Contact/>}
       
     ]
   },
