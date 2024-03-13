@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Home from './home/Home'
+import About from './aboutPage/About'
 import reportWebVitals from './reportWebVitals';
 
 import 'swiper/css';
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     element: <App/>,
     children:[
       {path:"/", element:<Home/>},
+      {
+        path: "/about",
+        element: <About/>
+      }
       
     ]
   },
