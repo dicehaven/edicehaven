@@ -14,8 +14,10 @@ const Banner = () => {
                 <div className="banner-content">
                     {title}
                     <form>
-                        <input type="text" name="search" id="search" placeholder="Search your board game" 
-                        ></input>
+                        <input type="text" name="search" id="search" placeholder="Search your board game" ></input>
+                        <button type="submit">
+                        <i className="icofont-search"></i>
+                        </button>
                     </form>
                     <p>{desc}</p>
                 </div>
