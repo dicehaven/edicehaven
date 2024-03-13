@@ -1,0 +1,81 @@
+const products = [
+  {
+    _id: "3",
+    name: "Monopoly Classic Edition",
+    image: "/images/monopoly.jpg",
+    description:
+      "Classic family board game of buying and trading properties with an aim to monopolize the board and bankrupt opponents.",
+    brand: "Hasbro",
+    category: "Games",
+    price: 19.99,
+    countInStock: 20,
+    rating: 4.6,
+    numReviews: 150,
+  },
+  {
+    _id: "4",
+    name: "Scrabble Deluxe Edition",
+    image: "/images/scrabble.jpg",
+    description:
+      "Word-based board game where players earn points by creating words from individual lettered tiles on a 15x15 grid.",
+    brand: "Mattel",
+    category: "Games",
+    price: 35.99,
+    countInStock: 12,
+    rating: 4.7,
+    numReviews: 85,
+  },
+  {
+    _id: "5",
+    name: "Chess Grandmaster Set",
+    image: "/images/chess.jpg",
+    description:
+      "Classic strategy game with high-quality wooden pieces and board, designed for both beginners and experienced players.",
+    brand: "Chess World",
+    category: "Games",
+    price: 59.99,
+    countInStock: 5,
+    rating: 4.9,
+    numReviews: 46,
+  },
+  {
+    _id: "6",
+    name: "Pandemic Board Game",
+    image: "/images/pandemic.jpg",
+    description:
+      "Cooperative board game where players work as a team to treat infections around the world while gathering resources for cures.",
+    brand: "Z-Man Games",
+    category: "Games",
+    price: 39.99,
+    countInStock: 10,
+    rating: 4.8,
+    numReviews: 210,
+  },
+  {
+    _id: "7",
+    name: "Ticket to Ride",
+    image: "/images/tickettoride.jpg",
+    description:
+      "Cross-country train adventure game where players collect and play matching train cards to claim railway routes connecting cities throughout North America.",
+    brand: "Days of Wonder",
+    category: "Games",
+    price: 49.99,
+    countInStock: 15,
+    rating: 4.7,
+    numReviews: 178,
+  },
+  {
+    _id: "8",
+    name: "Codenames",
+    image: "/images/codenames.jpg",
+    description:
+      "Social word game with a spy theme, where players guess the names of secret agents from one-word clues.",
+    brand: "Czech Games",
+    category: "Games",
+    price: 19.99,
+    countInStock: 25,
+    rating: 4.8,
+    numReviews: 132,
+  },
+];
+export default products;
