@@ -9,6 +9,6 @@ edicehaven
 - package.json: server package.json
 - .env: Environment variable - mongoDB URL, JWT Secret, ...
 
--To install dependencies
--Install backend dependencies: npm install
--Install frontend dependencies: cd frontend npm install
+- To install dependencies
+- Install backend dependencies: npm install
+- Install frontend dependencies: cd frontend npm install
