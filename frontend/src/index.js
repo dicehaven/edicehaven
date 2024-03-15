@@ -7,6 +7,7 @@ import About from './aboutPage/About'
 import Contact from './contactPage/Contact'
 import Login from './signinPage/signin';
 import CreateAccount from './createaacountPage/createAccount'
+import CartPage from './cartPage/CartPage';
 import reportWebVitals from './reportWebVitals';
 
 import 'swiper/css';
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
       {path: "/about", element: <About/>},
       {path: "/contact",element: <Contact/>},
       {path: "/login",element: <Login/>},
-      {path: "/sign-up",element: <CreateAccount/>}
+      {path: "/sign-up",element: <CreateAccount/>},
+      {path: "/cart-page",element: <CartPage/>}
       
       
     ]
