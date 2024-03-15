@@ -47,6 +47,7 @@ const NavItems = () => {
                                 <li><Link to="/shop">Shop</Link></li>
                                 <li><Link to="/about">About</Link></li>
                                 <li><Link to="/contact">Contact</Link></li>
+                                <li><Link to="/cart-page">Cart</Link></li>
                             </ul>
                         </div>
 
