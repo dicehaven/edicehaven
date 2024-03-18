@@ -1,19 +1,37 @@
-import express from "express";
-import products from "./data/products.js";
+import connectDB from "./config/db.js";
+import app from "./config/app.js"
+import http from "http"
+
 const port = 5000;
-const app = express();
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
 
-// Get request for all products
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
+connectDB();
 
-//Get request for single product
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+const server = http .createServer(app);
+server.listen(port, onConnect);
+server.on('error', onError);
+
+function onConnect() {
+  console.log(`Server connected and listening at port ${port}`)
+}
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+    default:
+      throw error;
+  }
+}
