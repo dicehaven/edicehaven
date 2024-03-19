@@ -10,7 +10,6 @@ router.get("/", (req, res) => {
 
 // Get request for all products
 router.get("/products", (req, res) => {
-  console.log('llega aca')
   res.json(products);
 });
 
