@@ -41,14 +41,11 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    console.log('req.oyd', req.body);
     let user = await UserModel.findOne({ "userName": req.body.userName })
     if (!user)
         throw new Error('User not found');
-        console.log('req.jasdfasdf', user);
     if (!user.authenticate(req.body.password))
         throw new Error("Email and/or password don't match.");
-        console.log('2.1351');
     // Issue the token
     let payload = {
         id: user._id,
@@ -76,7 +73,6 @@ router.post("/login", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
   const { id } = req.params;
-  console.log('id', id);
   try {
     await UserModel.updateOne({ _id: id}, {
       ...req.body
@@ -96,7 +92,6 @@ router.put("/update/:id", async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
-  console.log('id', id);
   try {
     await UserModel.deleteOne({ _id: id})
 
