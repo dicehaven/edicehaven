@@ -57,6 +57,7 @@ UserSchema.virtual('password')
   });
 
 UserSchema.methods.hashPassword = function (password) {
+  console.log('llegando al hasPassword');
   return crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');
 };
 
