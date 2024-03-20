@@ -1,11 +1,52 @@
-import React from 'react'
-import Banner from './Banner'
 
-const Home = () => {
+import React, { useState } from "react";
+
+
+
+const Login = () => {
+  // State variables for form fields
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Logic to handle account creation
+    // You can implement this logic based on your backend requirements
+    console.log("Form submitted:", { fullName, userName, email, password });
+    // Reset form fields after submission
+    setFullName("");
+    setUserName("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <div>
-      <Banner/>
-      <section class="text-gray-600 body-font">
+       <div id="img">
+        <img
+          src="https://i0.wp.com/dorkygeekynerdy.com/wp-content/uploads/2019/02/board-game-933165_1280-e1549489798633.jpg?fit=1280%2C313&ssl=1"
+          alt=""
+          width={100}
+          style={{ width: "100vw" }} // Apply inline style to set width to 100vw
+        />
+    <div
+      className="centered"
+      style={{
+        position: "absolute",
+        top: "30%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+  
+      }}
+    >
+      <h1>Buy the game from the best </h1>
+    </div>
+      </div>
+    
+   <section class="text-gray-600 body-font">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
@@ -91,8 +132,9 @@ const Home = () => {
     </div>
   </div>
 </section>
+            
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Login;
