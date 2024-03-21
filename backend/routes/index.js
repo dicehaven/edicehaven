@@ -10,18 +10,19 @@ router.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// Get request for all products
-router.get("/products", (req, res) => {
-  res.json(products);
-});
+// // Get request for all products
+// router.get("/products", (req, res) => {
+//   res.json(products);
+// });
 
-//Get request for single product
-router.get("/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
+// //Get request for single product
+// router.get("/products/:id", (req, res) => {
+//   const product = products.find((p) => p._id === req.params.id);
+//   res.json(product);
+// });
 
-//Get request for single product
+
+//register and login
 router.post("/register", async (req, res) => {
   try {
     let newUser = new UserModel(req.body);
