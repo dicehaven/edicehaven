@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
-  const [productDetails, setProductDetails] = useState(null);
+  // const [productDetails, setProductDetails] = useState(null);
 
   // useEffect(() => {
   //   // Simulated fetch from database using productId
@@ -18,13 +18,12 @@ const Product = ({ product }) => {
   //   };
 
   //   fetchProductDetails();
-  // }, [product.id]);
+  // }, [product.id]);;
 
   return (
     <div className="lg:w-1/4 md:w-1/5 p-5 w-full h-full">
-      {console.log("product", product)}
       <Link
-        to={`/product/${product.id}`}
+        to={`/product/${product._id}`}
         className="block relative h-48 rounded overflow-hidden"
       >
         <img
@@ -41,7 +40,7 @@ const Product = ({ product }) => {
           {product.name}
         </h2>
         <p className="mt-1">{product.price}</p>
-        {productDetails && (
+        {/* {productDetails && (
           <div>
             <h2 className="text-gray-900 title-font text-lg font-medium">
               {productDetails.name}
@@ -73,7 +72,7 @@ const Product = ({ product }) => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
