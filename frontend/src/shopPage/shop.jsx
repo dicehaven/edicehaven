@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Product from "./product";
 
 const Shop = () => {
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -11,22 +10,21 @@ const Shop = () => {
         const response = await fetch("http://localhost:5000/api/products", {
           method: "GET",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-        })
+        });
 
         const data = await response.json();
         if (data && data.success) {
-          setProducts(data);
+          setProducts(data.products);
         }
-
       } catch (err) {
-        console.log('this is the error', err);
+        console.log("this is the error", err);
       }
-    }
+    };
 
     fetchProducts();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -39,9 +37,8 @@ const Shop = () => {
       </div>
       <div className="flex flex-wrap -m-1">
         {products.map((product) => {
-          return <Product key={product._id} product={product} />
-        }
-        )}
+          return <Product key={product._id} product={product} />;
+        })}
       </div>
     </div>
   );
