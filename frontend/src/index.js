@@ -1,3 +1,4 @@
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -9,6 +10,8 @@ import Login from "./signinPage/signin";
 import CreateAccount from "./createaacountPage/createAccount";
 import CartPage from "./cartPage/CartPage";
 import IndividualProduct from "./individualProductPage/IndividualProduct";
+  import Shop from "./shopPage/shop";
+import ProductPage from "./shopPage/product";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -44,11 +47,21 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App/>}>
+          <Route path="/" element={<Home/>} />
+          <Route path="/about" element={<About/>} />
+          <Route path="/contact" element={<Contact/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/sign-up" element={<CreateAccount/>} />
+          {/* Ensure you are passing the products array to the Shop component */}
+          <Route path="/shop" element={<Shop products={products} />} />
+          <Route path="/product/:id" element={<ProductPage products={products} />} />
+        </Route>
+      </Routes>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
