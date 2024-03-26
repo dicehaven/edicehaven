@@ -1,7 +1,7 @@
-PUT http://localhost:5000/api/update/65f9082ec17fc24774161b4b
+PUT http://localhost:5000/api/update/65f9f76ff137aefbf34082ab
 Content-Type: application/json
 
 {   
-    "fullName": "La vuelta del Jorge Romero",
-    "userName": "jromero"
+    "fullName": "lelelel",
+    "userName": "lalalalla"
 }
