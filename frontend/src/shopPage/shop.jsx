@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Product from "./product";
 
-const Shop = ({ products }) => {
+const Shop = () => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/products", {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+
+        const data = await response.json();
+        if (data && data.success) {
+          setProducts(data);
+        }
+
+      } catch (err) {
+        console.log('this is the error', err);
+      }
+    }
+
+    fetchProducts();
+  }, [])
+
   return (
     <div>
       <div id="img">
@@ -12,9 +38,10 @@ const Shop = ({ products }) => {
         />
       </div>
       <div className="flex flex-wrap -m-1">
-        {products.map((product) => (
-          <Product key={product.id} product={product} />
-        ))}
+        {products.map((product) => {
+          return <Product key={product._id} product={product} />
+        }
+        )}
       </div>
     </div>
   );
