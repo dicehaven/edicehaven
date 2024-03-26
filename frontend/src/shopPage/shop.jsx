@@ -16,7 +16,7 @@ const Shop = () => {
 
         const data = await response.json();
         if (data && data.success) {
-          setProducts(data);
+          setProducts(data.products);
         }
       } catch (err) {
         console.log("this is the error", err);
