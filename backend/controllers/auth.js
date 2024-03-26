@@ -21,7 +21,6 @@ const register = () => async (req, res) => {
 
 
 const login = () => async (req, res) => {
-  console.log('llegando aca 222...')
   try {
     let user = await UserModel.findOne({ "userName": req.body.userName })
     if (!user)
