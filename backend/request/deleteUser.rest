@@ -1,0 +1,2 @@
+DELETE http://localhost:5000/api/update/65f9082ec17fc24774161b4b
+Content-Type: application/json

@@ -1,0 +1,7 @@
+PUT http://localhost:5000/api/update/65f9f76ff137aefbf34082ab
+Content-Type: application/json
+
+{   
+    "fullName": "lelelel",
+    "userName": "lalalalla"
+}
