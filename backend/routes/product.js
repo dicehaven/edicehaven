@@ -2,19 +2,19 @@ import { createProduct, deleteProduct, getProductById, getProducts, updateProduc
 
 const product = (router) => {
   //Create single product
-  router.post("/", createProduct());
+  router.post("/product", createProduct());
 
   //Update single product
-  router.put("/:id", updateProduct());
+  router.put("/product/:id", updateProduct());
 
   //Delege single product
-  router.delete("/:id", deleteProduct());
+  router.delete("/product/:id", deleteProduct());
 
   //get single product
-  router.get("/:id", getProductById());
+  router.get("/product/:id", getProductById());
 
   //get all products
-  router.get("/", getProducts());
+  router.get("/products", getProducts());
 
 }
 
