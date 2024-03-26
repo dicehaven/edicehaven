@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -50,6 +49,6 @@ root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 reportWebVitals();
