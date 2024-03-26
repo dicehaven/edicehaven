@@ -1,6 +1,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Home from "./home/Home";
@@ -10,7 +11,7 @@ import Login from "./signinPage/signin";
 import CreateAccount from "./createaacountPage/createAccount";
 import CartPage from "./cartPage/CartPage";
 import IndividualProduct from "./individualProductPage/IndividualProduct";
-  import Shop from "./shopPage/shop";
+import Shop from "./shopPage/shop";
 import ProductPage from "./shopPage/product";
 
 import reportWebVitals from "./reportWebVitals";
@@ -26,8 +27,6 @@ import "././assets/css/icofont.min.css";
 import "././assets/css/animate.css";
 import "././assets/css/style.min.css";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +39,8 @@ const router = createBrowserRouter([
       { path: "/sign-up", element: <CreateAccount /> },
       { path: "/cart-page", element: <CartPage /> },
       { path: "/product", element: <IndividualProduct /> },
+      { path: "product/:id", element: <ProductPage /> },
+      { path: "shop", element: <Shop /> },
     ],
   },
 ]);
@@ -47,20 +48,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<App/>}>
-          <Route path="/" element={<Home/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/sign-up" element={<CreateAccount/>} />
-          {/* Ensure you are passing the products array to the Shop component */}
-          <Route path="/shop" element={<Shop products={products} />} />
-          <Route path="/product/:id" element={<ProductPage products={products} />} />
-        </Route>
-      </Routes>
-    </Router>
+    <RouterProvider router={router} />
   </React.StrictMode>,
   document.getElementById('root')
 );

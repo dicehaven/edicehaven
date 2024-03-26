@@ -4,24 +4,25 @@ import { Link } from "react-router-dom";
 const Product = ({ product }) => {
   const [productDetails, setProductDetails] = useState(null);
 
-  useEffect(() => {
-    // Simulated fetch from database using productId
-    const fetchProductDetails = async () => {
-      try {
-        // Replace this with actual fetch call to your backend
-        const response = await fetch(`/api/products/${product.id}`);
-        const data = await response.json();
-        setProductDetails(data); // Update product details state with fetched data
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Simulated fetch from database using productId
+  //   const fetchProductDetails = async () => {
+  //     try {
+  //       // Replace this with actual fetch call to your backend
+  //       const response = await fetch(`/api/products/${product.id}`);
+  //       const data = await response.json();
+  //       setProductDetails(data); // Update product details state with fetched data
+  //     } catch (error) {
+  //       console.error("Error fetching product details:", error);
+  //     }
+  //   };
 
-    fetchProductDetails();
-  }, [product.id]);
+  //   fetchProductDetails();
+  // }, [product.id]);
 
   return (
-    <div className="lg:w-1/4 md:w-1/5 p-5 w-full">
+    <div className="lg:w-1/4 md:w-1/5 p-5 w-full h-full">
+      {console.log('product', product)}
       <Link to={`/product/${product.id}`} className="block relative h-48 rounded overflow-hidden">
         <img alt="ecommerce" className="object-cover object-center w-full h-full" src={product.image} />
       </Link>

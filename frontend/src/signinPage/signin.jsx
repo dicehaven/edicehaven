@@ -36,21 +36,9 @@ const Login = () => {
         navigate(from, { replace: true });
       }
 
-      // Reset htmlForm fields after submission
-      // logic to redirect - TODO
     } catch (err) {
       console.log('this is the error', err);
     }
-
-    // e.preventDefault();
-    // // Logic to handle login
-    // if (userName === "example" && password === "password") {
-    //   // Successful login
-    //   alert("Login successful!");
-    // } else {
-    //   // Failed login
-    //   alert("Invalid username or password!");
-    // }
   };
 
   const title = (
@@ -65,7 +53,6 @@ const Login = () => {
         <div className="container">
           <div className="banner-content">
             {title}
-
             <p>{desc}</p>
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
@@ -100,8 +87,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };
