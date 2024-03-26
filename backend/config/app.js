@@ -4,7 +4,9 @@ import logger from 'morgan';
 import cors from 'cors';
 
 import indexRouter from '../routes/index.js';
-import productRoute from '../routes/product.js';
+// import productRoute from '../routes/product.js';
+// import authRoute from '../routes/auth.js';
+// import usersRoute from '../routes/user.js';
 
 const app = express();
 
@@ -16,8 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', indexRouter);
-app.use('/api/products',productRoute);
+app.use('/api', indexRouter());
+
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

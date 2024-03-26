@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import productData from "../products.json";
+import React from 'react';
 
 
 const title = (
