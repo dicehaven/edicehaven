@@ -32,7 +32,6 @@ const Login = () => {
 
       if (data && data.success) {
         authenticate(data.token);
-        console.log('llega aca la cosa');
         navigate(from, { replace: true });
       }
 

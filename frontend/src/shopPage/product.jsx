@@ -18,9 +18,7 @@ const Product = ({ product }) => {
   //   };
 
   //   fetchProductDetails();
-  // }, [product.id]);
-
-  console.log('product', product._id);
+  // }, [product.id]);;
 
   return (
     <div className="lg:w-1/4 md:w-1/5 p-5 w-full h-full">
