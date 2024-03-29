@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/logo/logo.png"
 import { clearJWT, getUsername, isAuthenticated } from '../helpers/auth';
 
@@ -8,6 +8,7 @@ const NavItems = () => {
     const [menuToggle, setMenuToggle] = useState(false);
     const [socialToggle, setSocialToggle] = useState(false);
     const [headerFixed, setHeaderFixed] = useState(false);
+    const navigate = useNavigate();
 
     //addevent listener
     window.addEventListener("scroll", () => {
@@ -20,6 +21,7 @@ const NavItems = () => {
 
     const signoutClick = () => {
         clearJWT();
+        navigate("/", { replace: true });
     }
 
     return (
