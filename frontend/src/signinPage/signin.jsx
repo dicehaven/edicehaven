@@ -33,9 +33,12 @@ const Login = () => {
       if (data && data.success) {
         authenticate(data.token);
         navigate(from, { replace: true });
+      } else {
+        alert(data.message);
       }
 
     } catch (err) {
+      alert(err.messasge)
       console.log('this is the error', err);
     }
   };

@@ -7,30 +7,64 @@ const register = () => async (req, res) => {
     let newUser = new UserModel(req.body);
 
     let result = await UserModel.create(newUser);
-    res.json(
+
+    // Issue the token
+    let payload = {
+      id: result._id,
+      userName: result.userName,
+      isAdmin: result.admin,
+    }
+
+    let token = jwt.sign(payload, config.SECRETKEY,
+      {
+        algorithm: 'HS512',
+        expiresIn: "20min"
+      });
+
+    return res.json(
       {
         success: true,
         message: "User created successfully.",
-        result
+        token,
       }
     );
   } catch (error) {
     console.log(error);
+    return res.json(
+      {
+        success: false,
+        message: error.message,
+      }
+    );
   }
 }
+
 
 
 const login = () => async (req, res) => {
   try {
     let user = await UserModel.findOne({ "userName": req.body.userName })
-    if (!user)
-      throw new Error('User not found');
-    if (!user.authenticate(req.body.password))
-      throw new Error("Email and/or password don't match.");
+    if (!user) {
+      return res.json(
+        {
+          success: false,
+          message: "User not found.",
+        }
+      );
+    }
+
+    if (!user.authenticate(req.body.password)) {
+      return res.json(
+        {
+          success: false,
+          message: "Email and/or password don't match.",
+        }
+      );
+    }
     // Issue the token
     let payload = {
       id: user._id,
-      username: user.userName,
+      userName: user.userName,
       isAdmin: user.admin,
     }
 
@@ -44,12 +78,19 @@ const login = () => async (req, res) => {
     return res.json(
       {
         success: true,
+        message: "Login successful",
         token: token
       }
     );
 
   } catch (error) {
     console.log(error);
+    return res.json(
+      {
+        success: false,
+        message: error.message,
+      }
+    );
   }
 }
 
