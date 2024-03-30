@@ -29,7 +29,6 @@ const clearJWT = ()=>{
   }
 }
 
-
 const getUsername = ()=>{
   if (typeof window === "undefined") {
     return false;
@@ -37,4 +36,11 @@ const getUsername = ()=>{
   return sessionStorage.getItem('userName');
 }
 
-export { authenticate, isAuthenticated, clearJWT, getUsername }
+const getUserId = ()=>{
+  if (typeof window === "undefined") {
+    return false;
+  }
+  return sessionStorage.getItem('id');
+}
+
+export { authenticate, isAuthenticated, clearJWT, getUsername, getUserId }

@@ -4,9 +4,9 @@ const createProduct = () => async (req, res) => {
   const newProduct = new ProductModel(req.body);
   try {
     const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
+    return res.status(200).json(savedProduct);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
@@ -19,18 +19,18 @@ const updateProduct = () => async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updatedProduct);
+    return res.status(200).json(updatedProduct);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
 const deleteProduct = () => async (req, res) => {
   try {
     await ProductModel.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted...");
+    return res.status(200).json("Product has been deleted...");
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
@@ -52,18 +52,26 @@ const getProducts = () => async (req, res) => {
       products = await ProductModel.find();
     }
 
-    res.status(200).json({ products, success: true });
+    return res.status(200).json({ products, success: true });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 }
 
 const getProductById = () => async (req, res) => {
   try {
     const product = await ProductModel.findById(req.params.id);
-    res.status(200).json(product);
+    return res.status(200).json({
+      success: true,
+      message: "Product found successfully",
+      product,
+    });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+      product,
+    });
   }
 }
 

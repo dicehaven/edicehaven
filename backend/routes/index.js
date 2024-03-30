@@ -2,6 +2,7 @@ import express from 'express';
 import auth from './auth.js'
 import user from './user.js'
 import product from './product.js'
+import cart from './cart.js'
 
 export const routes = () => {
   const router = express.Router();
@@ -12,22 +13,10 @@ export const routes = () => {
   
   auth(router);
   user(router);
-  product(router)
+  product(router);
+  cart(router);
 
   return router;
 };
-
-
-// // Get request for all products
-// router.get("/products", (req, res) => {
-//   res.json(products);
-// });
-
-// //Get request for single product
-// router.get("/products/:id", (req, res) => {
-//   const product = products.find((p) => p._id === req.params.id);
-//   res.json(product);
-// });
-
 
 export default routes;
