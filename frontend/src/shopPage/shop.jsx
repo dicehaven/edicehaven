@@ -38,7 +38,7 @@ const Shop = () => {
       <div className="flex flex-wrap -m-1">
 
         {products.map((product) => {
-          return <Product product={product} />;
+          return <Product key={product._id} product={product} />;
         })}
       </div>
     </div>

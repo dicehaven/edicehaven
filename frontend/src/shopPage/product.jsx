@@ -2,23 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
-  // const [productDetails, setProductDetails] = useState(null);
-
-  // useEffect(() => {
-  //   // Simulated fetch from database using productId
-  //   const fetchProductDetails = async () => {
-  //     try {
-  //       // Replace this with actual fetch call to your backend
-  //       const response = await fetch(`/api/products/${product.id}`);
-  //       const data = await response.json();
-  //       setProductDetails(data); // Update product details state with fetched data
-  //     } catch (error) {
-  //       console.error("Error fetching product details:", error);
-  //     }
-  //   };
-
-  //   fetchProductDetails();
-  // }, [product.id]);;
 
   return (
     <div className="lg:w-1/4 md:w-1/5 p-5 w-full h-full">
