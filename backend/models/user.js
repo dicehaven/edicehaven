@@ -38,12 +38,13 @@ const UserSchema = new Schema({
   admin: {
     type: Boolean,
     default: false
-  }
+  },
 },
   {
     collection: "users"
   }
 );
+
 
 UserSchema.virtual('password')
   .set(function (password) {
