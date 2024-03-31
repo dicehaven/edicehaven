@@ -3,14 +3,16 @@ import Rating from "../rating/Rating";
 import PageHeader from "../components/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserId } from "../helpers/auth";
+import { handleRemoveFromCart, handleUpsertToCart } from "../helpers/cart";
 
 function IndividualProduct() {
   const { id } = useParams();
   const [individualProduct, setIndividualProduct] = useState({});
+  const [quantity, setQuantity] = useState({ isInCart: false, quantity: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchIndividualProduct = async () => {
+    const fetchInitialData = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/product/${id}`, {
           method: "GET",
@@ -20,48 +22,62 @@ function IndividualProduct() {
         });
 
         const data = await response.json();
-        console.log('data', data);
         if (data && data.success) {
           setIndividualProduct(data.product);
         } else {
           alert(data.message)
         }
       } catch (err) {
-        console.log("this is the error", err);
+        alert(err.message)
+      }
+
+      const userId = getUserId();
+      if (!userId) {
+        setQuantity({ isInCart: false, quantity: 0 })
+      } else {
+        try {
+
+          const response = await fetch(`http://localhost:5000/api/cart/${userId}/product/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          const productQtyResponse = await response.json();
+          if (productQtyResponse && productQtyResponse.success) {
+            setQuantity({ isInCart: true, quantity: productQtyResponse.product.quantity });
+          } else {
+            setQuantity({ isInCart: false, quantity: 0 })
+          }
+        } catch (err) {
+          console.log("this is the error", err);
+          alert(err.message)
+        }
       }
     };
 
-    fetchIndividualProduct();
+    fetchInitialData();
   }, []);
 
-  const handleAddToCart = async () => {
-    try {
-      console.log('id --->', getUserId)
-      const response = await fetch('http://localhost:5000/api/cart', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: individualProduct._id,
-          quantity: 1,
-          price: individualProduct.price,
-          userId: getUserId()
-        })
-      });
-
-      const data = await response.json();
-      console.log('data', data);
-      if (data && data.success) {
-        alert("Product added to cart!");
-        navigate("/shop", {replace: true });
-      } else {
-        alert(data.message)
-      }
-    } catch (err) {
-      console.log("this is the error", err);
-    }
+  const increaseQuantity = () => {
+    const newQuantity = quantity.quantity + 1;
+    setQuantity({ ...quantity, quantity: newQuantity });
   };
+
+  const decreaseQuantity = () => {
+    const newQuantity = quantity.quantity > 0 ? quantity.quantity - 1 : 0;
+    setQuantity({ ...quantity, quantity: newQuantity });
+  };
+
+  const editCart = async () => {
+    await handleUpsertToCart(quantity, individualProduct, navigate);
+  }
+
+  const deleleFromCart = async () => {
+    await handleRemoveFromCart(individualProduct, navigate);
+  }
+
 
   return (
     <div>
@@ -102,18 +118,35 @@ function IndividualProduct() {
             >
               {individualProduct.countInStock > 0 ? "In Stock" : "Out of Stock"}
             </p>
+            <div className="quantity-adjuster mt-3">
+              <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
+              <span className="mx-2">{quantity.quantity}</span>
+              <button className="btn btn-secondary" onClick={increaseQuantity}>+</button>
+            </div>
             <button
               style={{
+                marginTop: '15px',
                 backgroundColor: "#ffc107",
                 borderColor: "#ffc107",
                 color: "#000",
               }}
               className="btn btn-primary btn-lg"
               disabled={individualProduct.countInStock === 0}
-              onClick={handleAddToCart}
+              onClick={editCart}
             >
               Add to Cart
             </button>
+            {
+              quantity.isInCart && (
+                <button
+                  style={{ marginTop: "15px", marginLeft: "10px", backgroundColor: "#dc3545", borderColor: "#dc3545" }}
+                  className="btn btn-danger btn-lg"
+                  onClick={deleleFromCart}
+                >
+                  Remove from Cart
+                </button>
+              )
+            }
           </div>
         </div>
       </div>

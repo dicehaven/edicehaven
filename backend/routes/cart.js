@@ -1,10 +1,11 @@
-import { addProductToCart } from "../controllers/cart.js";
+import { upsertProductToCart, getProductFromCart, getUserCart } from "../controllers/cart.js";
 
-const product = (router) => {
-  // Add product to cart
-  router.post("/cart", addProductToCart());
-
+const cart = (router) => {
+  // Add/Modifiy product to/in cart
+  router.get("/cart/:userId", getUserCart());
+  router.get("/cart/:userId/product/:productId", getProductFromCart());
+  router.post("/cart", upsertProductToCart());
 }
 
 
-export default product;
+export default cart;

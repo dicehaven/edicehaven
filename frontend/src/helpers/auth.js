@@ -6,8 +6,6 @@ const authenticate = (token) => {
 
     let decoded = jwtDecode(token);
 
-    console.log('decoded', decoded)
-
     sessionStorage.setItem('userName', decoded.userName)
     sessionStorage.setItem('id', decoded.id)
   }
