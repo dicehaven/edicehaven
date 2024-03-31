@@ -12,7 +12,7 @@ import CartPage from "./cartPage/CartPage";
 import IndividualProduct from "./individualProductPage/IndividualProduct";
 import Shop from "./shopPage/shop";
 import ProductPage from "./shopPage/product";
-
+import OrderListScreen from "./admin/OrderListScreen";
 import reportWebVitals from "./reportWebVitals";
 
 import "swiper/css";
@@ -25,6 +25,10 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "././assets/css/icofont.min.css";
 import "././assets/css/animate.css";
 import "././assets/css/style.min.css";
+import ProductEditScreen from "./admin/ProductEditScreen";
+import ProductListScreen from "./admin/ProductListScreen";
+import UserEditScreen from "./admin/UserEditScreen";
+import UserListScreen from "./admin/UserListScreen";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +43,11 @@ const router = createBrowserRouter([
       { path: "/cart-page", element: <CartPage /> },
       { path: "/product/:id", element: <IndividualProduct /> },
       { path: "/shop", element: <Shop /> },
+      { path: "/admin/order", element: <OrderListScreen /> },
+      { path: "/admin/editproduct", element: <ProductEditScreen /> },
+      { path: "/admin/listproduct", element: <ProductListScreen /> },
+      { path: "/admin/edituser", element: <UserEditScreen /> },
+      { path: "/admin/listuser", element: <UserListScreen /> },
     ],
   },
 ]);
