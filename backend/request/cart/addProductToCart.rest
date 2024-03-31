@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/cart
+Content-Type: application/json
+
+{   
+  "userId": "65f9f76ff137aefbf34082ab",
+  "productId": "65fb93c03446ccc247cfcbee",
+  "quantity": 1
+}

@@ -1,6 +1,8 @@
 
 import React, { useState } from "react";
 import logo from "../assets/images/bg-img/bgbg.jpg"
+import { authenticate } from "../helpers/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   // State variables for form fields
@@ -8,6 +10,9 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { from } = state || { from: { pathname: '/' } };
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -23,15 +28,17 @@ const Login = () => {
         body: JSON.stringify({ fullName, userName, email, password })
       })
 
-      console.log('this is the backend response', response)
+      const data = await response.json();
 
-      // Reset form fields after submission
-      setFullName("");
-      setUserName("");
-      setEmail("");
-      setPassword("");
-      // logic to redirect - TODO
+      if (data && data.success) {
+        authenticate(data.token);
+        navigate(from, { replace: true });
+      } else {
+        alert(data.message);
+      }
+
     } catch (err) {
+      alert(err.messasge)
       console.log('this is the error', err);
     }
   };
@@ -92,15 +99,15 @@ const Login = () => {
                 </div>
                 <div className="relative mb-4">
                   <label
-                    htmlFor="username"
+                    htmlFor="userName"
                     className="leading-7 text-sm text-gray-600"
                   >
                     User Name
                   </label>
                   <input
                     type="text"
-                    id="username"
-                    name="username"
+                    id="userName"
+                    name="userName"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
