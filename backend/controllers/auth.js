@@ -79,7 +79,8 @@ const login = () => async (req, res) => {
       {
         success: true,
         message: "Login successful",
-        token: token
+        token: token,
+        isAdmin: user.admin
       }
     );
 

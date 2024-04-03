@@ -29,6 +29,8 @@ import ProductEditScreen from "./admin/ProductEditScreen";
 import ProductListScreen from "./admin/ProductListScreen";
 import UserEditScreen from "./admin/UserEditScreen";
 import UserListScreen from "./admin/UserListScreen";
+import RequireAdminRole from "./components/RequireAdminRole";
+import ProductAddScreen from "./admin/ProductAddScreen";
 
 const router = createBrowserRouter([
   {
@@ -43,20 +45,21 @@ const router = createBrowserRouter([
       { path: "/cart-page", element: <CartPage /> },
       { path: "/product/:id", element: <IndividualProduct /> },
       { path: "/shop", element: <Shop /> },
-      { path: "/admin/order", element: <OrderListScreen /> },
-      { path: "/admin/editproduct", element: <ProductEditScreen /> },
-      { path: "/admin/listproduct", element: <ProductListScreen /> },
-      { path: "/admin/edituser", element: <UserEditScreen /> },
-      { path: "/admin/listuser", element: <UserListScreen /> },
+      { path: "/admin/order", element: (<RequireAdminRole><OrderListScreen /></RequireAdminRole>) },
+      { path: "/admin/editproduct", element: (<RequireAdminRole><ProductEditScreen /></RequireAdminRole>) },
+      { path: "/admin/listproduct", element: (<RequireAdminRole><ProductListScreen /></RequireAdminRole>) },
+      { path: "/admin/edituser", element: (<RequireAdminRole><UserEditScreen /></RequireAdminRole>) },
+      { path: "/admin/listuser", element: (<RequireAdminRole><UserListScreen /></RequireAdminRole>) },
+      { path: "/admin/createproduct", element: (<RequireAdminRole><ProductAddScreen /></RequireAdminRole>) },
     ],
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const container = document.getElementById("root");
+const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 reportWebVitals();

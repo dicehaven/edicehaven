@@ -8,9 +8,6 @@ const Home = ({ products }) => {
   return (
     <div>
       <Banner/>
-    
-
-
    </div>
 
   )

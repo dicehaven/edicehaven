@@ -19,7 +19,7 @@ const isAuthenticated = () => {
   return !!sessionStorage.getItem('token');
 }
 
-const clearJWT = ()=>{
+const clearJWT = () => {
   if (typeof window !== "undefined") {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userName');
@@ -27,18 +27,34 @@ const clearJWT = ()=>{
   }
 }
 
-const getUsername = ()=>{
+const getUsername = () => {
   if (typeof window === "undefined") {
     return false;
   }
   return sessionStorage.getItem('userName');
 }
 
-const getUserId = ()=>{
+const isUserAdmin = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  const token = sessionStorage.getItem('token')
+
+  if (token) {
+    let decoded = jwtDecode(token);
+    return decoded.isAdmin;
+  }
+
+  return false;
+
+}
+
+
+const getUserId = () => {
   if (typeof window === "undefined") {
     return false;
   }
   return sessionStorage.getItem('id');
 }
 
-export { authenticate, isAuthenticated, clearJWT, getUsername, getUserId }
+export { authenticate, isAuthenticated, clearJWT, getUsername, getUserId, isUserAdmin }
