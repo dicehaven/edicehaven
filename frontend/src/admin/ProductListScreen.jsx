@@ -3,6 +3,7 @@ import { Table, Row, Col, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import PageHeader from "../components/PageHeader";
+import { Link } from "react-router-dom";
 
 function ProductListScreen() {
   // Define state variables
@@ -11,6 +12,35 @@ function ProductListScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState({ products: [], pages: 0, page: 0 }); // Define data state variable
+
+  useEffect(() => {
+    // Fetch cart items from local storage
+    const getAllUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/products', {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        console.log('data', data)
+
+        if (data && data.success) {
+          setData((prevState) => ({ ...prevState, products: data.products }));
+        }
+      }
+      catch (err) {
+        alert(err.message)
+      }
+
+    };
+
+    getAllUsers();
+
+  }, []);
 
   // Define createProductHandler and deleteHandler functions if they are not defined elsewhere
   const createProductHandler = () => {
@@ -33,19 +63,20 @@ function ProductListScreen() {
           <h4>Products</h4>
         </Col>
         <Col className="text-end">
-          <Button
-            variant="primary"
-            style={{
-              marginTop: "15px",
-              backgroundColor: "#ffc107",
-              borderColor: "#ffc107",
-              color: "#000",
-            }}
-            className="btn btn-primary my-3"
-            onClick={createProductHandler}
-          >
-            Create Product
-          </Button>
+          <Link to="/admin/createproduct">
+            <Button
+              variant="primary"
+              style={{
+                marginTop: "15px",
+                backgroundColor: "#ffc107",
+                borderColor: "#ffc107",
+                color: "#000",
+              }}
+              className="btn btn-primary my-3"
+            >
+              Create Product
+            </Button>
+          </Link>
         </Col>
       </Row>
 
@@ -63,6 +94,7 @@ function ProductListScreen() {
                 <th>ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
+                <th>STOCK</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
               </tr>
@@ -73,10 +105,11 @@ function ProductListScreen() {
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
+                  <td>{product.countInStock}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/admin/editproduct`} state={{...product}}>
                       <Button variant="light" className="btn-sm mx-2">
                         <FaEdit />
                       </Button>

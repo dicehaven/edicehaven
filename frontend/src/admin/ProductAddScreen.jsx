@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function ProductEditScreen() {
+function ProductAddScreen() {
   // Define state variables
   const location = useLocation();
   const navigate = useNavigate();
-  const [name, setName] = useState(location.state.name);
-  const [price, setPrice] = useState(location.state.price);
-  const [image, setImage] = useState(location.state.image);
-  const [brand, setBrand] = useState(location.state.brand);
-  const [category, setCategory] = useState(location.state.category);
-  const [countInStock, setCountInStock] = useState(location.state.countInStock);
-  const [description, setDescription] = useState(location.state.description);
+  const [productInfo, setProductInfo] = useState({
+    name: "",
+    price: 0,
+    image: "",
+    brand: "",
+    category: "",
+    countInStock: 0,
+    description: "",
+  })
   const [loadingUpdate, setLoadingUpdate] = useState(false); // Define loadingUpdate state variable
   const [loadingUpload, setLoadingUpload] = useState(false); // Define loadingUpload state variable
   const [isLoading, setIsLoading] = useState(false); // Define isLoading state variable
@@ -23,12 +25,12 @@ function ProductEditScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/product/${location.state._id}`, {
-        method: "PUT",
+      const response = await fetch(`http://localhost:5000/api/product`, {
+        method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, price, image, brand, category, countInStock, description })
+        body: JSON.stringify({ ...productInfo, numReviews: 0 })
       })
 
       const data = await response.json();
@@ -48,21 +50,15 @@ function ProductEditScreen() {
     }
   };
 
-  useEffect(() => {
-    // Fetch product details or any other necessary data
-  }, []);
-
-  if (!location.state) {
-    setError("Product not defined. Please try again.")
+  const handleChange = (e, key) => {
+    setProductInfo((prevState) => ({ ...prevState, [key]: e.target.value }))
   }
-
-  console.log('product', location.state);
 
   return (
     <div>
       <PageHeader title={"Edit Product"} curPage={"Edit Product"} />
       <div className="container">
-        <h3>Edit Product</h3>
+        <h3>Create Product</h3>
         {loadingUpdate && <div>Loading Update...</div>}
         {isLoading ? (
           <div>Loading...</div>
@@ -75,8 +71,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="name"
                 placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={productInfo.name}
+                onChange={(e) => handleChange(e, "name")}
               ></Form.Control>
             </Form.Group>
 
@@ -85,8 +81,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="number"
                 placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                value={productInfo.price}
+                onChange={(e) => handleChange(e, "price")}
               ></Form.Control>
             </Form.Group>
 
@@ -96,12 +92,12 @@ function ProductEditScreen() {
                 className="mb-3"
                 type="text"
                 placeholder="Enter image url"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                value={productInfo.image}
+                onChange={(e) => handleChange(e, "image")}
               ></Form.Control>
               <div>
                 <div>Preview</div>
-                { image && <img src={image} width={250} alt={`${name} pic not available`}/>}
+                {productInfo.image && <img src={productInfo.image} width={250} alt={`${productInfo.name} pic not available`} />}
               </div>
               {loadingUpload && <div>Loading Upload...</div>}
             </Form.Group>
@@ -111,8 +107,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
+                value={productInfo.brand}
+                onChange={(e) => handleChange(e, "brand")}
               ></Form.Control>
             </Form.Group>
 
@@ -121,8 +117,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="number"
                 placeholder="Enter countInStock"
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
+                value={productInfo.countInStock}
+                onChange={(e) => handleChange(e, "countInStock")}
               ></Form.Control>
             </Form.Group>
 
@@ -131,8 +127,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={productInfo.category}
+                onChange={(e) => handleChange(e, "category")}
               ></Form.Control>
             </Form.Group>
 
@@ -141,8 +137,8 @@ function ProductEditScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={productInfo.description}
+                onChange={(e) => handleChange(e, "description")}
               ></Form.Control>
             </Form.Group>
 
@@ -157,13 +153,13 @@ function ProductEditScreen() {
               }}
               className="btn btn-primary"
             >
-              Update
+              Create
             </Button>
           </Form>
         )}
-      </div>
     </div>
+    </div >
   );
 }
 
-export default ProductEditScreen;
+export default ProductAddScreen;

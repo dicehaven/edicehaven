@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/logo/logo.png"
-import { clearJWT, getUsername, isAuthenticated } from '../helpers/auth';
+import { clearJWT, getUsername, isAuthenticated, isUserAdmin } from '../helpers/auth';
 
 
 const NavItems = () => {
@@ -55,13 +55,18 @@ const NavItems = () => {
                         {/* menu area*/}
                         <div className='menu-area'>
                             <div className='menu'>
-                                <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
+                                {!isUserAdmin() && <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
                                     <li><Link to="/">Home</Link></li>
                                     <li><Link to="/shop">Shop</Link></li>
                                     <li><Link to="/about">About</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
                                     <li><Link to="/cart-page">Cart</Link></li>
-                                </ul>
+                                </ul>}
+                                {isUserAdmin() && <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
+                                    <li><Link to="/admin/listuser">List Users</Link></li>
+                                    <li><Link to="/admin/listproduct">List Products</Link></li>
+                                </ul>}
+
                             </div>
 
                             {/*sign in & log in*/}

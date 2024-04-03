@@ -115,12 +115,12 @@ const CartPage = () => {
                     <tr key={indx}>
                       <td className="product-item cat-product">
                         <div className="p-thumb">
-                          <Link to="/shop-single">
+                          <Link to={`/product/${item.product._id}`}>
                             <img src={`${item.product.image}`} alt="thumbnail-cover-product" />
                           </Link>
                         </div>
                         <div className="p-content">
-                          <Link to="/shop-single">{item.product.name}</Link>
+                          <Link to={`/product/${item.product._id}`}>{item.product.name}</Link>
                         </div>
                       </td>
                       <td className="cat-price">${item.price.toFixed(2)}</td>

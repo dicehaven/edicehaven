@@ -1,18 +1,46 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UserEditScreen() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [name, setName] = useState(location.state.fullName);
+  const [email, setEmail] = useState(location.state.email);
+  const [isAdmin, setIsAdmin] = useState(location.state.admin);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const submitHandler = (e) => {
+  console.log('location', location);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    // Your submit logic here
+    try {
+      const response = await fetch("http://localhost:5000/api/users/update", {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fullName: name, email, admin: isAdmin, id: location.state.id })
+      })
+
+      const data = await response.json();
+
+      console.log('data0', data);
+
+      if (data && data.success) {
+        alert(data.message);
+        navigate("/admin/listuser", { replace: true })
+      } else {
+        alert(data.message);
+      }
+
+    } catch (err) {
+      alert(err.messasge)
+      console.log('this is the error', err);
+    }
   };
 
   return (

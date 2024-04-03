@@ -30,9 +30,15 @@ const Login = () => {
 
       const data = await response.json();
 
+      console.log('data0', data);
+
       if (data && data.success) {
         authenticate(data.token);
-        navigate(from, { replace: true });
+        if (data.isAdmin) {
+          navigate("/admin/listuser", { replace: true });
+        } else {
+          navigate(from, { replace: true });
+        }
       } else {
         alert(data.message);
       }
