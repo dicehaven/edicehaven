@@ -1,7 +1,25 @@
 import UserModel from "../models/user.js"
 
+const getUsers = () => async (req, res) => {
+  try {
+    const users = await UserModel.find();
+
+    return res.status(200).json(
+      {
+        success: true,
+        message: "User found successfully",
+        users
+      }
+    );
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const deleteUser = () => async (req, res) => {
   const { id } = req.params;
+  console.log('id =-==>', id);
   try {
     await UserModel.deleteOne({ _id: id })
 
@@ -18,10 +36,10 @@ const deleteUser = () => async (req, res) => {
 }
 
 const updateUser = () => async (req, res) => {
-  const { id } = req.params;
+  const { id, ...rest } = req.body;
   try {
     await UserModel.updateOne({ _id: id }, {
-      ...req.body
+      ...rest,
     })
 
     return res.json(
@@ -36,4 +54,4 @@ const updateUser = () => async (req, res) => {
   }
 }
 
-export { deleteUser, updateUser }
+export { deleteUser, updateUser, getUsers }

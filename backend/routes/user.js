@@ -1,8 +1,9 @@
-import { deleteUser, updateUser } from "../controllers/users.js";
+import { deleteUser, getUsers, updateUser } from "../controllers/users.js";
 
 const user = (router) => {
-    router.put("/users/update/:id", updateUser());
-    router.delete("/users/delete/:id", deleteUser());
+    router.get("/users", getUsers());
+    router.put("/users/update", updateUser());
+    router.delete("/users/:id", deleteUser());
 }
 
 export default user;
