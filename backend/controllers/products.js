@@ -52,22 +52,27 @@ const deleteProduct = () => async (req, res) => {
 }
 
 const getProducts = () => async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
+  const { searchValue, qCategory, sortBy, sortOrder } = req.query;
   try {
-    let products;
-
-    if (qNew) {
-      products = await ProductModel.find().sort({ createdAt: -1 }).limit(1);
-    } else if (qCategory) {
-      products = await ProductModel.find({
-        categories: {
-          $in: [qCategory],
-        },
-      });
-    } else {
-      products = await ProductModel.find();
+    let queryObject = {};
+    if (searchValue) {
+      // Case insensitive search by name
+      queryObject.name = { $regex: searchValue, $options: 'i' };
     }
+
+    if (qCategory) {
+      queryObject.category = { $in: [qCategory] };
+    }
+
+    // Sorting logic
+    let sortObject = { countInStock: -1, name: 1 }; // Default sorting by available and name
+    if (sortBy) {
+      const order = sortOrder === 'desc' ? -1 : 1; 
+      sortObject = { [sortBy]: order };
+      if (sortBy !== 'name') sortObject.name = 1;
+    }
+
+    const products = await ProductModel.find(queryObject).sort(sortObject);
 
     return res.status(200).json({ products, success: true });
   } catch (err) {
