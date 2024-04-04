@@ -15,7 +15,7 @@ function ProductListScreen() {
 
   useEffect(() => {
     // Fetch cart items from local storage
-    const getAllUsers = async () => {
+    const getAllProducts = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/products', {
           method: "GET",
@@ -38,22 +38,14 @@ function ProductListScreen() {
 
     };
 
-    getAllUsers();
+    getAllProducts();
 
   }, []);
 
-  // Define createProductHandler and deleteHandler functions if they are not defined elsewhere
-  const createProductHandler = () => {
-    // Add logic to handle creating a product
-  };
-
+  // TODO
   const deleteHandler = (productId) => {
     // Add logic to handle deleting a product
   };
-
-  useEffect(() => {
-    // Fetch products data or any other necessary data
-  }, []);
 
   return (
     <div>
