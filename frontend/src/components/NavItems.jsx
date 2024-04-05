@@ -8,6 +8,7 @@ const NavItems = () => {
     const [menuToggle, setMenuToggle] = useState(false);
     const [socialToggle, setSocialToggle] = useState(false);
     const [headerFixed, setHeaderFixed] = useState(false);
+    
     const navigate = useNavigate();
 
     //addevent listener
@@ -61,6 +62,7 @@ const NavItems = () => {
                                     <li><Link to="/about">About</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
                                     <li><Link to="/cart-page">Cart</Link></li>
+                                    <li><Link to="/profile">My Profile</Link></li>
                                 </ul>}
                                 {isUserAdmin() && <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
                                     <li><Link to="/admin/listuser">List Users</Link></li>
