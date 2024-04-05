@@ -54,4 +54,16 @@ const updateUser = () => async (req, res) => {
   }
 }
 
-export { deleteUser, updateUser, getUsers }
+const getUser = () => async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.id);
+    const { password, ...others } = user._doc;
+    res.status(200).json(others);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+}
+
+
+export { deleteUser, updateUser, getUsers, getUser }

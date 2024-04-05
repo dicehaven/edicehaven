@@ -14,6 +14,7 @@ import Shop from "./shopPage/shop";
 import ProductPage from "./shopPage/product";
 import OrderListScreen from "./admin/OrderListScreen";
 import reportWebVitals from "./reportWebVitals";
+import Profile from "./profile/ProfilePage";
 
 import "swiper/css";
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "/cart-page", element: <CartPage /> },
       { path: "/product/:id", element: <IndividualProduct /> },
       { path: "/shop", element: <Shop /> },
+      { path: "/profile", element: <Profile /> },
       { path: "/admin/order", element: (<RequireAdminRole><OrderListScreen /></RequireAdminRole>) },
       { path: "/admin/editproduct", element: (<RequireAdminRole><ProductEditScreen /></RequireAdminRole>) },
       { path: "/admin/listproduct", element: (<RequireAdminRole><ProductListScreen /></RequireAdminRole>) },
