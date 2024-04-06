@@ -1,7 +1,6 @@
 import ProductModel from "../models/product.js"
 
 const createProduct = () => async (req, res) => {
-  console.log('req.body', req.body)
   const newProduct = new ProductModel(req.body);
   try {
     const savedProduct = await newProduct.save();
@@ -19,7 +18,6 @@ const createProduct = () => async (req, res) => {
 }
 
 const updateProduct = () => async (req, res) => {
-  console.log('firsreq.params.idt', req.params.id)
   try {
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       req.params.id,
@@ -92,7 +90,6 @@ const getProductById = () => async (req, res) => {
     return res.status(500).json({
       success: false,
       message: err.message,
-      product,
     });
   }
 }

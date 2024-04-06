@@ -3,6 +3,7 @@ import auth from './auth.js'
 import user from './user.js'
 import product from './product.js'
 import cart from './cart.js'
+import orders from './order.js'
 
 export const routes = () => {
   const router = express.Router();
@@ -15,6 +16,7 @@ export const routes = () => {
   user(router);
   product(router);
   cart(router);
+  orders(router);
 
   return router;
 };

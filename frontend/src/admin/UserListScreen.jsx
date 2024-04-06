@@ -45,9 +45,6 @@ function UserListScreen({ isLoading, error }) {
       })
 
       const data = await response.json();
-
-      console.log('data0', data);
-
       if (data && data.success) {
         alert(data.message);
         setFetchAgain((prevState) => !prevState)
@@ -98,7 +95,6 @@ function UserListScreen({ isLoading, error }) {
                 <td>
                   {!user.admin && (
                     <>
-                      {console.log("user ===> ", user)}
                       <Link
                         to='/admin/edituser'
                         state={{ ...user }}

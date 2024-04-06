@@ -8,7 +8,7 @@ const NavItems = () => {
     const [menuToggle, setMenuToggle] = useState(false);
     const [socialToggle, setSocialToggle] = useState(false);
     const [headerFixed, setHeaderFixed] = useState(false);
-    
+
     const navigate = useNavigate();
 
     //addevent listener
@@ -30,7 +30,6 @@ const NavItems = () => {
             {/* header top start */}
             <div className={`header-top d-md-none ${socialToggle ? "open" : ""}`}>
                 <div className='container'>
-                    {console.log('isAuthenticated()', isAuthenticated())}
                     {!isAuthenticated() && <div className='header-top-area'>
                         <Link to="/signup" className='lab-btn me-3'><span>Create Account</span></Link>
                         <Link to="/login">Login</Link>
@@ -61,8 +60,13 @@ const NavItems = () => {
                                     <li><Link to="/shop">Shop</Link></li>
                                     <li><Link to="/about">About</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
-                                    <li><Link to="/cart-page">Cart</Link></li>
-                                    <li><Link to="/profile">My Profile</Link></li>
+                                    {isAuthenticated() &&
+                                        <>
+                                            <li><Link to="/cart-page">Cart</Link></li>
+                                            <li><Link to="/profile">My Profile</Link></li>
+                                        </>
+                                    }
+
                                 </ul>}
                                 {isUserAdmin() && <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
                                     <li><Link to="/admin/listuser">List Users</Link></li>

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductAddScreen() {
   // Define state variables
-  const location = useLocation();
   const navigate = useNavigate();
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -34,8 +33,6 @@ function ProductAddScreen() {
       })
 
       const data = await response.json();
-
-      console.log('data0', data);
 
       if (data && data.success) {
         alert(data.message);

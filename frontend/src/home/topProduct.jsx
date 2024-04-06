@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const TopProduct = () => {
-            /* Use this to connect it to top products -prayas
-  // State to hold the products data
-  const [topProduct, setProducts] = useState([]);
+  /* Use this to connect it to top products -prayas
+// State to hold the products data
+const [topProduct, setProducts] = useState([]);
 
-  // Fetching data from the database when the component mounts
-  useEffect(() => {
-    // Assuming you have an API endpoint to fetch top products
-    fetch('api/top-products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error('Error fetching top products:', error));
-  }, [] )*/
+// Fetching data from the database when the component mounts
+useEffect(() => {
+// Assuming you have an API endpoint to fetch top products
+fetch('api/top-products')
+.then(response => response.json())
+.then(data => setProducts(data))
+.catch(error => console.error('Error fetching top products:', error));
+}, [] )*/
 
   // Dummy product data
   const topProducts = [
@@ -49,8 +49,36 @@ const TopProduct = () => {
     // Add more dummy products as needed
   ];
 
-  const [displayedProducts, setDisplayedProducts] = useState(topProducts.slice(0, 4));
+  const [displayedProducts, setDisplayedProducts] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  // const [data, setData] = useState({ products: []});
+
+  useEffect(() => {
+    // Fetch cart items from local storage
+    const getAllProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/products?sortBy='rating'&sortOrder='desc'`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          setDisplayedProducts(data.products.slice(0,4));
+        }
+      }
+      catch (err) {
+        alert(err.message)
+      }
+
+    };
+
+    getAllProducts();
+
+  }, []);
 
   const handleShowMore = () => {
     const nextIndex = displayedProducts.length + 4;
@@ -61,18 +89,18 @@ const TopProduct = () => {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
-      <h3>
-  <i className="fas fa-fire" style={{ 
-    background: "linear-gradient(to right, #ff0000, #ff7f00, #ffff00)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    display: "inline-block"
-  }}></i> TOP PRODUCTS
-</h3>
+        <h3>
+          <i className="fas fa-fire" style={{
+            background: "linear-gradient(to right, #ff0000, #ff7f00, #ffff00)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            display: "inline-block"
+          }}></i> TOP PRODUCTS
+        </h3>
 
         <div className="flex flex-wrap -m-4">
           {displayedProducts.map(product => (
-            <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
+            <div key={product._id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
               <Link to={`/product/${product.id}`} className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt={product.name}

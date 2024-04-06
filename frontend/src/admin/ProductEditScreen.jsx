@@ -32,9 +32,6 @@ function ProductEditScreen() {
       })
 
       const data = await response.json();
-
-      console.log('data0', data);
-
       if (data && data.success) {
         alert(data.message);
         navigate("/admin/listproduct", { replace: true })
@@ -55,8 +52,6 @@ function ProductEditScreen() {
   if (!location.state) {
     setError("Product not defined. Please try again.")
   }
-
-  console.log('product', location.state);
 
   return (
     <div>
