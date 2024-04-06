@@ -32,6 +32,7 @@ import UserEditScreen from "./admin/UserEditScreen";
 import UserListScreen from "./admin/UserListScreen";
 import RequireAdminRole from "./components/RequireAdminRole";
 import ProductAddScreen from "./admin/ProductAddScreen";
+import PaymentPage from "./paymentPage/PaymentPage";
 
 const router = createBrowserRouter([
   {
@@ -47,12 +48,55 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <IndividualProduct /> },
       { path: "/shop", element: <Shop /> },
       { path: "/profile", element: <Profile /> },
-      { path: "/admin/order", element: (<RequireAdminRole><OrderListScreen /></RequireAdminRole>) },
-      { path: "/admin/editproduct", element: (<RequireAdminRole><ProductEditScreen /></RequireAdminRole>) },
-      { path: "/admin/listproduct", element: (<RequireAdminRole><ProductListScreen /></RequireAdminRole>) },
-      { path: "/admin/edituser", element: (<RequireAdminRole><UserEditScreen /></RequireAdminRole>) },
-      { path: "/admin/listuser", element: (<RequireAdminRole><UserListScreen /></RequireAdminRole>) },
-      { path: "/admin/createproduct", element: (<RequireAdminRole><ProductAddScreen /></RequireAdminRole>) },
+      { path: "/payment", element: <PaymentPage /> },
+      {
+        path: "/admin/order",
+        element: (
+          <RequireAdminRole>
+            <OrderListScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/editproduct",
+        element: (
+          <RequireAdminRole>
+            <ProductEditScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/listproduct",
+        element: (
+          <RequireAdminRole>
+            <ProductListScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/edituser",
+        element: (
+          <RequireAdminRole>
+            <UserEditScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/listuser",
+        element: (
+          <RequireAdminRole>
+            <UserListScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/createproduct",
+        element: (
+          <RequireAdminRole>
+            <ProductAddScreen />
+          </RequireAdminRole>
+        ),
+      },
     ],
   },
 ]);
