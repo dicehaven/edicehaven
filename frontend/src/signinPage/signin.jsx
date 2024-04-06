@@ -30,8 +30,6 @@ const Login = () => {
 
       const data = await response.json();
 
-      console.log('data0', data);
-
       if (data && data.success) {
         authenticate(data.token);
         if (data.isAdmin) {

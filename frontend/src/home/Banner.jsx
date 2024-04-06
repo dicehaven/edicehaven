@@ -43,11 +43,7 @@ const Banner = () => {
                 });
 
                 const data = await response.json();
-
-                console.log('data', data)
-
                 if (data && data.success) {
-                    console.log('lalala')
                     setFilteredItems(data.products);
                 }
             }

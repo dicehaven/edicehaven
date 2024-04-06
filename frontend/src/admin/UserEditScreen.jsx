@@ -13,8 +13,6 @@ function UserEditScreen() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('location', location);
-
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -27,8 +25,6 @@ function UserEditScreen() {
       })
 
       const data = await response.json();
-
-      console.log('data0', data);
 
       if (data && data.success) {
         alert(data.message);

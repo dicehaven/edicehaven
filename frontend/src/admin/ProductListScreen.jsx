@@ -11,7 +11,7 @@ function ProductListScreen() {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [data, setData] = useState({ products: [], pages: 0, page: 0 }); // Define data state variable
+  const [data, setData] = useState({ products: [] });
 
   useEffect(() => {
     // Fetch cart items from local storage
@@ -25,8 +25,6 @@ function ProductListScreen() {
         });
 
         const data = await response.json();
-
-        console.log('data', data)
 
         if (data && data.success) {
           setData((prevState) => ({ ...prevState, products: data.products }));

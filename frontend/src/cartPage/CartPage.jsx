@@ -183,8 +183,8 @@ const CartPage = () => {
                   </form>
                   <form className="cart-checkout" action="/">
                     {/* <input type="submit" value="Update Cart" /> */}
-                    <Link to="/check-out">
-                      <input type="submit" value="Proceed to Checkout" />
+                    <Link to={"/payment"} state={{ cartTotals: orderTotal }}>
+                      <input type="submit" value="Proceed to Checkout" disabled={!orderTotal || orderTotal === 0}/>
                     </Link>
                   </form>
                 </div>
@@ -226,9 +226,9 @@ const CartPage = () => {
                           placeholder="Postcode/ZIP"
                           className="cart-page-input-text"
                         />
-                        <Link to="/payment">
+                        {/* <Link to="/payment">
                           <button type="submit">Check out</button>
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
 
@@ -262,7 +262,7 @@ const CartPage = () => {
             </div>
           )}
         </div>
-      </div>
+      </div >
     </>
   );
 };

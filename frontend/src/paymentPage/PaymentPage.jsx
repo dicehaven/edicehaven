@@ -1,8 +1,12 @@
 import React from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PageHeader from "../components/PageHeader";
+import { getUserId } from "../helpers/auth";
+import { useLocation, useNavigate } from "react-router-dom"
 
 const PaymentPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   // Callback function triggered when the order is created
   const handleCreateOrder = (data, actions) => {
     // Perform any necessary actions to create the order
@@ -10,7 +14,7 @@ const PaymentPage = () => {
       purchase_units: [
         {
           amount: {
-            value: "10.00",
+            value: location.state.cartTotals.toString(),
           },
         },
       ],
@@ -18,9 +22,36 @@ const PaymentPage = () => {
   };
 
   // Callback function triggered when the payment is approved
-  const handleApprovePayment = (data, actions) => {
+  const handleApprovePayment = async (data, actions) => {
     // Perform any necessary actions when the payment is approved
-    alert("Your order has been paid!");
+    const { orderID, payerID, paymentID, paymentSource } = data;
+    try {
+      const response = await fetch('http://localhost:5000/api/orders', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId: orderID,
+          payerId: payerID,
+          paymentId: paymentID,
+          paymentSource,
+          totalPaid: location.state.cartTotals.toString(),
+          userId: getUserId()
+        })
+      });
+
+      const data = await response.json();
+      if (data && data.success) {
+        alert("Your order has been paid!");
+        navigate("/", { replace: true })
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (err) {
+      console.log("This is the error", err);
+      alert("Your order has been paid, but we have an issue with saving your order in our servers. You'll see your orders promptly")
+    }
   };
 
   // Callback function triggered when an error occurs during payment processing
@@ -35,11 +66,11 @@ const PaymentPage = () => {
       options={{
         "client-id":
           "AeKXJa2-zP8ct6wxzlNDr_kvurbYZe--rMJR1qRbEgX8Wx5EE_gjJm78JXAXzTCkTDsOuSpBTnqJxxPP",
+        "currency": "CAD",
       }}
     >
       <PageHeader title={"Payment Page"} curPage={"Payment Information"} />
       <h4>Payment Method</h4>
-
       <PayPalButtons
         createOrder={handleCreateOrder}
         onApprove={handleApprovePayment}

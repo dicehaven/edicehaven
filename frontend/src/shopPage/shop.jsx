@@ -18,7 +18,6 @@ const Shop = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      console.log('sorr', sort);
       try {
         const response = await fetch(`http://localhost:5000/api/products?qCategory=${category}&sortBy=${sort.sortBy}&sortOrder=${sort.sortOrder}`, {
           method: "GET",
@@ -29,7 +28,6 @@ const Shop = () => {
 
         const data = await response.json();
 
-        console.log('dadtaa', data);
         if (data && data.success) {
           setProducts(data.products);
         }
