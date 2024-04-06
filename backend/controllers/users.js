@@ -19,7 +19,6 @@ const getUsers = () => async (req, res) => {
 
 const deleteUser = () => async (req, res) => {
   const { id } = req.params;
-  console.log('id =-==>', id);
   try {
     await UserModel.deleteOne({ _id: id })
 
