@@ -1,42 +1,49 @@
 import jwt from 'jsonwebtoken';
-import config from './config.js';
+import config from '../config/config.js';
 
 // Middleware to validate JWT
-const isAuthenticated = (req, res, next) => {
+const isAuthenticated = () => (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.sendStatus(401);
+        return res.status(401).json({
+            success: false,
+            message: "You need to be logged in or have a valid access to perform this action. Please try login in again"
+        });
     }
 
-    jwt.verify(token, config.SECRET_KEY, (err, user) => {
-        if (err) {
-            return res.sendStatus(403); // Forbidden if token is invalid
-        }
+    try {
+        jwt.verify(token, config.SECRETKEY, (err, user) => {
+            if (err) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your session expired, please sign in again"
+                }); // Forbidden if token is invalid
+            }
 
-        req.user = user; // Attach the user payload to the request object
-        next(); // Proceed to the next middleware or route handler
-    });
+            req.user = user; // Attach the user payload to the request object
+            next(); // Proceed to the next middleware or route handler
+        });
+    } catch (err) {
+        return res.status(401).json({
+            success: false,
+            message: "You need to be logged in to perform this action"
+        })
+    }
+
+
 };
 
 // Middleware to check user role
-const isAdmin = (requiredRole) => (req, res, next) => {
-    if (Boolean(req.user.isAdmin)) {
-        return res.sendStatus(403); // Forbidden if it is not admin
+const isAdmin = () => (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return res.status(403).json({
+            success: false,
+            message: "You need to be admin to access this resource"
+        }); // Forbidden if it is not admin
     }
     next(); // Proceed if the user has the required role
 };
 
-
-// Middleware to check if the user is the owner or a superAdmin
-const isOwner = (req, res, next) => {
-    const isProductOwner = req.user.id === req.productOwnerId; // Assume user ID is in the token payload
-
-    if (!isProductOwner) {
-        return res.sendStatus(403); // Forbidden if not owner
-    }
-    next(); // Proceed if the user is superAdmin or the owner of the product
-};
-
-export { isAuthenticated, isAdmin, isOwner }
+export { isAuthenticated, isAdmin }

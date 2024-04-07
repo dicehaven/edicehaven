@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 import delImgUrl from "../assets/images/shop/del.png";
-import { getUserId, isAuthenticated } from "../helpers/auth";
+import { getUserId, getUserToken, isAuthenticated } from "../helpers/auth";
 import { handleRemoveFromCart } from "../helpers/cart";
 
 const CartPage = () => {
@@ -23,6 +23,7 @@ const CartPage = () => {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${getUserToken()}`
               },
             }
           );
@@ -31,6 +32,8 @@ const CartPage = () => {
 
           if (data && data.success && data.cart) {
             setCartItems([...data.cart[0].items]);
+          } else {
+            alert(data.message)
           }
         } catch (err) {
           alert(err.message);
@@ -184,7 +187,7 @@ const CartPage = () => {
                   <form className="cart-checkout" action="/">
                     {/* <input type="submit" value="Update Cart" /> */}
                     <Link to={"/payment"} state={{ cartTotals: orderTotal }}>
-                      <input type="submit" value="Proceed to Checkout" disabled={!orderTotal || orderTotal === 0}/>
+                      <input type="submit" value="Proceed to Checkout" disabled={!orderTotal || orderTotal === 0} />
                     </Link>
                   </form>
                 </div>

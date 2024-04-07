@@ -1,14 +1,15 @@
+import { isAuthenticated, isAdmin } from "../helpers/auth.js";
 import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/products.js";
 
 const product = (router) => {
   //Create single product
-  router.post("/product", createProduct());
+  router.post("/product", isAuthenticated(), isAdmin(), createProduct());
 
   //Update single product
-  router.put("/product/:id", updateProduct());
+  router.put("/product/:id", isAuthenticated(), isAdmin(), updateProduct());
 
   //Delege single product
-  router.delete("/product/:id", deleteProduct());
+  router.delete("/product/:id", isAuthenticated(), isAdmin(), deleteProduct());
 
   //get single product
   router.get("/product/:id", getProductById());
@@ -17,8 +18,5 @@ const product = (router) => {
   router.get("/products", getProducts());
 
 }
-
-
-
 
 export default product;

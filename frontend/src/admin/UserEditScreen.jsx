@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUserToken } from "../helpers/auth";
 
 function UserEditScreen() {
   const location = useLocation();
@@ -19,7 +20,8 @@ function UserEditScreen() {
       const response = await fetch("http://localhost:5000/api/users/update", {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
         },
         body: JSON.stringify({ fullName: name, email, admin: isAdmin, id: location.state.id })
       })
