@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
+import { getUserToken } from "../helpers/auth";
 
 function ProductAddScreen() {
   // Define state variables
@@ -27,7 +28,8 @@ function ProductAddScreen() {
       const response = await fetch(`http://localhost:5000/api/product`, {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
         },
         body: JSON.stringify({ ...productInfo, numReviews: 0 })
       })

@@ -57,4 +57,11 @@ const getUserId = () => {
   return sessionStorage.getItem('id');
 }
 
-export { authenticate, isAuthenticated, clearJWT, getUsername, getUserId, isUserAdmin }
+const getUserToken = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  return sessionStorage.getItem('token');
+}
+
+export { authenticate, isAuthenticated, clearJWT, getUsername, getUserId, isUserAdmin, getUserToken }

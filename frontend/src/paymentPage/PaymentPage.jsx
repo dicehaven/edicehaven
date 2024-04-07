@@ -1,7 +1,7 @@
 import React from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PageHeader from "../components/PageHeader";
-import { getUserId } from "../helpers/auth";
+import { getUserId, getUserToken } from "../helpers/auth";
 import { useLocation, useNavigate } from "react-router-dom"
 
 const PaymentPage = () => {
@@ -30,6 +30,7 @@ const PaymentPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${getUserToken()}`
         },
         body: JSON.stringify({
           orderId: orderID,

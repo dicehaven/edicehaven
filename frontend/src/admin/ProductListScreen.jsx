@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
+import { getUserToken } from "../helpers/auth";
 
 function ProductListScreen() {
   // Define state variables
@@ -12,6 +13,7 @@ function ProductListScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState({ products: [] });
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   useEffect(() => {
     // Fetch cart items from local storage
@@ -21,6 +23,7 @@ function ProductListScreen() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${getUserToken()}`
           },
         });
 
@@ -38,11 +41,31 @@ function ProductListScreen() {
 
     getAllProducts();
 
-  }, []);
+  }, [fetchAgain]);
 
-  // TODO
-  const deleteHandler = (productId) => {
-    // Add logic to handle deleting a product
+  const deleteHandler = async (e, productId) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:5000/api/product/${productId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
+        },
+      })
+
+      const data = await response.json();
+      if (data && data.success) {
+        alert(data.message);
+        setFetchAgain((prevState) => !prevState)
+      } else {
+        alert(data.message);
+      }
+
+    } catch (err) {
+      alert(err.messasge)
+      console.log('this is the error', err);
+    }
   };
 
   return (
@@ -107,7 +130,7 @@ function ProductListScreen() {
                     <Button
                       variant="danger"
                       className="btn-sm"
-                      onClick={() => deleteHandler(product._id)}
+                      onClick={(e) => deleteHandler(e, product._id)}
                     >
                       <FaTrash style={{ color: "white" }} />
                     </Button>

@@ -71,6 +71,7 @@ const NavItems = () => {
                                 {isUserAdmin() && <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
                                     <li><Link to="/admin/listuser">List Users</Link></li>
                                     <li><Link to="/admin/listproduct">List Products</Link></li>
+                                    <li><Link to="/admin/listorders">List Orders</Link></li>
                                 </ul>}
 
                             </div>

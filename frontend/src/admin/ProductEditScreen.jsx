@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUserToken } from "../helpers/auth";
 
 function ProductEditScreen() {
   // Define state variables
@@ -26,7 +27,8 @@ function ProductEditScreen() {
       const response = await fetch(`http://localhost:5000/api/product/${location.state._id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
         },
         body: JSON.stringify({ name, price, image, brand, category, countInStock, description })
       })

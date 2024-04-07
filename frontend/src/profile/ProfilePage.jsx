@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserId, isAuthenticated } from "../helpers/auth";
+import { getUserId, getUserToken, isAuthenticated } from "../helpers/auth";
 import PageHeader from "../components/PageHeader";
 
 
@@ -10,12 +10,17 @@ const Profile = () => {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${getUserId()}`);
+        const response = await fetch(`http://localhost:5000/api/users/${getUserId()}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${getUserToken()}`
+          }
+        });
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
         } else {
-
           console.error("Failed to fetch user data");
         }
       } catch (error) {
@@ -33,9 +38,10 @@ const Profile = () => {
       const response = await fetch("http://localhost:5000/api/users/update", {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
         },
-        body: JSON.stringify({ fullName: user.fullName, email: user.email, admin: user.isAdmin, id: user._id })
+        body: JSON.stringify({ fullName: user.fullName, userName: user.userName, email: user.email, admin: user.isAdmin, id: user._id })
       })
 
       const data = await response.json();
@@ -110,8 +116,8 @@ const Profile = () => {
                 <span>Username:</span>
                 <input
                   type="text"
-                  name="username"
-                  id="username"
+                  name="userName"
+                  id="userName"
                   placeholder="username"
                   value={user.userName}
                   onChange={(ev) =>

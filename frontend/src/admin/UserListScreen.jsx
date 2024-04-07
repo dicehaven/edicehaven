@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { FaCheck, FaTimes, FaEdit, FaTrash } from "react-icons/fa"; // Add imports for icons
 import PageHeader from "../components/PageHeader"; // Add PageHeader import
+import { getUserToken } from "../helpers/auth";
 
 function UserListScreen({ isLoading, error }) {
   const [dbUsers, setDbUsers] = useState([]);
@@ -16,6 +17,7 @@ function UserListScreen({ isLoading, error }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${getUserToken()}`
           },
         });
 
@@ -40,7 +42,8 @@ function UserListScreen({ isLoading, error }) {
       const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
         method: "DELETE",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${getUserToken()}`
         },
       })
 

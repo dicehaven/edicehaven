@@ -11,7 +11,6 @@ import CreateAccount from "./createaacountPage/createAccount";
 import CartPage from "./cartPage/CartPage";
 import IndividualProduct from "./individualProductPage/IndividualProduct";
 import Shop from "./shopPage/shop";
-import ProductPage from "./shopPage/product";
 import OrderListScreen from "./admin/OrderListScreen";
 import reportWebVitals from "./reportWebVitals";
 import Profile from "./profile/ProfilePage";
@@ -94,6 +93,14 @@ const router = createBrowserRouter([
         element: (
           <RequireAdminRole>
             <ProductAddScreen />
+          </RequireAdminRole>
+        ),
+      },
+      {
+        path: "/admin/listorders",
+        element: (
+          <RequireAdminRole>
+            <OrderListScreen />
           </RequireAdminRole>
         ),
       },

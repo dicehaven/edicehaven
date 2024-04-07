@@ -1,6 +1,6 @@
 // Cart functions
 
-import { getUserId } from "./auth";
+import { getUserId, getUserToken } from "./auth";
 
 
 const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
@@ -15,6 +15,7 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${getUserToken()}`
       },
       body: JSON.stringify({
         productId: individualProduct._id,
@@ -35,6 +36,7 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
     }
   } catch (err) {
     console.log("this is the error", err);
+    alert(err.message)
   }
 };
 
@@ -45,6 +47,7 @@ const handleRemoveFromCart = async (individualProduct, navigate) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${getUserToken()}`
       },
       body: JSON.stringify({
         productId: individualProduct._id,
