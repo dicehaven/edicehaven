@@ -28,8 +28,6 @@ const postCompleteOrderAndPayment = () => async (req, res) => {
     // Start a transaction
     session.startTransaction();
 
-    console.log('req.body', req.body);
-
     // Get Cart Details from userId
     const cartDetails = await CartModel.find({ user: { _id: req.body.userId } }).session(session);
 

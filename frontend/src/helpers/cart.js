@@ -10,9 +10,6 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate, showAle
     return;
   }
 
-  console.log('quantity', quantity);
-  console.log('individualProduct', individualProduct)
-
   try {
     const response = await fetch('http://localhost:5000/api/cart', {
       method: "POST",
