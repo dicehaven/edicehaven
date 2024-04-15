@@ -3,7 +3,7 @@ import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 import delImgUrl from "../assets/images/shop/del.png";
 import { getUserId, getUserToken, isAuthenticated } from "../helpers/auth";
-import { handleRemoveFromCart } from "../helpers/cart";
+import { handleRemoveFromCart, handleUpsertToCart } from "../helpers/cart";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -47,15 +47,27 @@ const CartPage = () => {
   };
 
   // Handle quantity increase
-  const handleIncrease = (item) => {
+  const handleIncrease = async (item) => {
     item.quantity += 1;
+    try {
+      await handleUpsertToCart({ quantity: item.quantity }, item.product, null, false)
+    } catch (err) {
+      alert(err.message)
+    }
+
     setCartItems([...cartItems]);
   };
 
   // Handle quantity decrease
-  const handleDecrease = (item) => {
+  const handleDecrease = async (item) => {
     if (item.quantity > 1) {
       item.quantity -= 1;
+      try {
+        await handleUpsertToCart({ quantity: item.quantity }, item.product, null, false)
+      } catch (err) {
+        alert(err.message)
+      }
+
       setCartItems([...cartItems]);
     }
   };

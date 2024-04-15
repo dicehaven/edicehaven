@@ -65,7 +65,7 @@ const PaymentPage = () => {
   return (
     <PayPalScriptProvider
       options={{
-        "client-id": PAYPAL_CLIENT_ID,
+        "client-id": "AeKXJa2-zP8ct6wxzlNDr_kvurbYZe--rMJR1qRbEgX8Wx5EE_gjJm78JXAXzTCkTDsOuSpBTnqJxxPP",
         "currency": "CAD",
       }}
     >

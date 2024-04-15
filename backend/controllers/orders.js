@@ -34,7 +34,7 @@ const postCompleteOrderAndPayment = () => async (req, res) => {
     // Create a new order with the cart details
     const newOrder = new OrderModel({
       ...req.body,
-      user: userId,
+      user: req.body.userId,
       status: "Processing",
       totalPaid: req.body.totalPaid,
       orderDetails: cartDetails[0].items.map((elem) => ({
@@ -75,6 +75,8 @@ const postCompleteOrderAndPayment = () => async (req, res) => {
   } catch (err) {
     // Abort the transaction if there's a failure
     await session.abortTransaction();
+
+    console.log('err', err);
 
     // Return an error response
     return res.status(500).json({
