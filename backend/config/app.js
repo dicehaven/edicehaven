@@ -4,9 +4,6 @@ import logger from 'morgan';
 import cors from 'cors';
 
 import indexRouter from '../routes/index.js';
-// import productRoute from '../routes/product.js';
-// import authRoute from '../routes/auth.js';
-// import usersRoute from '../routes/user.js';
 
 const app = express();
 

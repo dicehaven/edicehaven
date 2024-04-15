@@ -7,7 +7,6 @@ const Profile = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-
     const fetchUserData = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/users/${getUserId()}`, {
@@ -141,9 +140,7 @@ const Profile = () => {
                     })
                   }
                 />
-
                 <button type="button" style={{ fontWeight: 'bold', border: '2px solid black', padding: '5px 10px', marginTop: '10px' }} onClick={updateUser}>Update</button>
-
               </div>
             }</div>
         </div>

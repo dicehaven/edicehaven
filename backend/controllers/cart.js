@@ -104,21 +104,8 @@ const upsertProductToCart = () => async (req, res) => {
   }
 };
 
-// const clearAllCartFromUser = () => async (req, res) => {
-
-// }
-
-// const payCartItems = () => async (req, res) => {
-
-// }
-
-
-
-
 export {
   getUserCart,
   getProductFromCart,
   upsertProductToCart,
-  // clearAllCartFromUser,
-  // payCartItems,
 }

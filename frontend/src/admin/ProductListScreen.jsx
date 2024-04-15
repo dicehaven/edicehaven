@@ -7,16 +7,11 @@ import { Link } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
 
 function ProductListScreen() {
-  // Define state variables
-  const [loadingCreate, setLoadingCreate] = useState(false);
-  const [loadingDelete, setLoadingDelete] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [data, setData] = useState({ products: [] });
   const [fetchAgain, setFetchAgain] = useState(false);
 
   useEffect(() => {
-    // Fetch cart items from local storage
+    // Fetch cart items from database
     const getAllProducts = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/products', {
@@ -45,6 +40,7 @@ function ProductListScreen() {
 
   const deleteHandler = async (e, productId) => {
     e.preventDefault();
+    // Delete product from database
     try {
       const response = await fetch(`http://localhost:5000/api/product/${productId}`, {
         method: "DELETE",
@@ -92,14 +88,6 @@ function ProductListScreen() {
           </Link>
         </Col>
       </Row>
-
-      {loadingCreate && <div>Loading create...</div>}
-      {loadingDelete && <div>Loading delete...</div>}
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div>Error: {error}</div>
-      ) : (
         <div className="mx-4">
           <Table striped bordered hover responsive className="table-sm">
             <thead>
@@ -140,7 +128,6 @@ function ProductListScreen() {
             </tbody>
           </Table>
         </div>
-      )}
     </div>
   );
 }

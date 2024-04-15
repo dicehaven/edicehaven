@@ -12,6 +12,7 @@ export const routes = () => {
     res.send("API is running...");
   });
   
+  // Joins all routes under a a single file
   auth(router);
   user(router);
   product(router);

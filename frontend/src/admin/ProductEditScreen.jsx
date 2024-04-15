@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
 
 function ProductEditScreen() {
-  // Define state variables
   const location = useLocation();
   const navigate = useNavigate();
   const [name, setName] = useState(location.state.name);
@@ -15,14 +14,12 @@ function ProductEditScreen() {
   const [category, setCategory] = useState(location.state.category);
   const [countInStock, setCountInStock] = useState(location.state.countInStock);
   const [description, setDescription] = useState(location.state.description);
-  const [loadingUpdate, setLoadingUpdate] = useState(false); // Define loadingUpdate state variable
-  const [loadingUpload, setLoadingUpload] = useState(false); // Define loadingUpload state variable
-  const [isLoading, setIsLoading] = useState(false); // Define isLoading state variable
-  const [error, setError] = useState(null); // Define error state variable
+  const [error, setError] = useState(null);
 
-  // Define submitHandler function
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    // Updates information from product
     try {
       const response = await fetch(`http://localhost:5000/api/product/${location.state._id}`, {
         method: "PUT",
@@ -47,10 +44,6 @@ function ProductEditScreen() {
     }
   };
 
-  useEffect(() => {
-    // Fetch product details or any other necessary data
-  }, []);
-
   if (!location.state) {
     setError("Product not defined. Please try again.")
   }
@@ -60,10 +53,7 @@ function ProductEditScreen() {
       <PageHeader title={"Edit Product"} curPage={"Edit Product"} />
       <div className="container">
         <h3>Edit Product</h3>
-        {loadingUpdate && <div>Loading Update...</div>}
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
+        {error ? (
           <div>Error: {error}</div>
         ) : (
           <Form onSubmit={submitHandler} className="m-3">
@@ -98,9 +88,8 @@ function ProductEditScreen() {
               ></Form.Control>
               <div>
                 <div>Preview</div>
-                { image && <img src={image} width={250} alt={`${name} pic not available`}/>}
+                {image && <img src={image} width={250} alt={`${name} pic not available`} />}
               </div>
-              {loadingUpload && <div>Loading Upload...</div>}
             </Form.Group>
 
             <Form.Group controlId="brand" className="mb-3">

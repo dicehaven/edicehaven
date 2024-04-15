@@ -10,12 +10,10 @@ function UserEditScreen() {
   const [name, setName] = useState(location.state.fullName);
   const [email, setEmail] = useState(location.state.email);
   const [isAdmin, setIsAdmin] = useState(location.state.admin);
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    // Function to handle form submission
     try {
       const response = await fetch("http://localhost:5000/api/users/update", {
         method: "PUT",
@@ -44,15 +42,8 @@ function UserEditScreen() {
   return (
     <div>
       <PageHeader title={"Edit User"} curPage={"Edit User"} />
-
       <div className="container">
         <h4>Edit User</h4>
-        {loadingUpdate && <div>Loading...</div>}
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
-        ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group className="my-2" controlId="name">
               <Form.Label>Name</Form.Label>
@@ -96,7 +87,6 @@ function UserEditScreen() {
               Update
             </Button>
           </Form>
-        )}
       </div>
     </div>
   );

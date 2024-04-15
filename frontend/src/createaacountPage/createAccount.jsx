@@ -17,8 +17,8 @@ const Login = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to handle account creation
-    // You can implement this logic based on your backend requirements
+
+    // Creation of the user account
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",

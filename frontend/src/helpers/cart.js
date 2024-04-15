@@ -40,7 +40,6 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
   }
 };
 
-// Conceptually, this is not a 100% correct, but it works
 const handleRemoveFromCart = async (individualProduct, navigate) => {
   try {
     const response = await fetch('http://localhost:5000/api/cart', {
