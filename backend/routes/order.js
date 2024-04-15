@@ -6,7 +6,7 @@ const orders = (router) => {
   router.get("/orders", isAuthenticated(), isAdmin(), getOrders());
 
   // create a new order
-  router.post("/orders", isAuthenticated(), isAdmin(), postCompleteOrderAndPayment());
+  router.post("/orders", isAuthenticated(), postCompleteOrderAndPayment());
 
   // updates order status by order Id
   router.put('/orders/:orderId/updateStatus', isAuthenticated(), isAdmin(), updateStatus())

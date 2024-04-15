@@ -3,12 +3,15 @@
 import { getUserId, getUserToken } from "./auth";
 
 
-const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
+const handleUpsertToCart = async (quantity, individualProduct, navigate, showAlert = true) => {
 
   if (quantity.quantity < 1) {
     alert("To add to cart, you need at least one item")
     return;
   }
+
+  console.log('quantity', quantity);
+  console.log('individualProduct', individualProduct)
 
   try {
     const response = await fetch('http://localhost:5000/api/cart', {
@@ -27,12 +30,16 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate) => {
 
     const data = await response.json();
     if (data && data.success) {
-      alert("Product added to cart!");
+      if (showAlert) {
+        alert("Product added to cart!");
+      }
       if (navigate) {
         navigate("/shop", { replace: true });
       }
     } else {
-      alert(data.message)
+      if (showAlert) {
+        alert(data.message)
+      }
     }
   } catch (err) {
     console.log("this is the error", err);

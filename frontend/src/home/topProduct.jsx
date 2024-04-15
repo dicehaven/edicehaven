@@ -46,7 +46,7 @@ const TopProduct = () => {
         <div className="flex flex-wrap -m-4">
           {displayedProducts.map(product => (
             <div key={product._id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <Link to={`/product/${product.id}`} className="block relative h-48 rounded overflow-hidden">
+              <Link to={`/product/${product._id}`} className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt={product.name}
                   className="object-cover object-center w-full h-full block"
