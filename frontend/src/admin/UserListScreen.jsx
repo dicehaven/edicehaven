@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
-import { FaCheck, FaTimes, FaEdit, FaTrash } from "react-icons/fa"; // Add imports for icons
-import PageHeader from "../components/PageHeader"; // Add PageHeader import
+import { FaCheck, FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import PageHeader from "../components/PageHeader"; 
 import { getUserToken } from "../helpers/auth";
 
 function UserListScreen({ isLoading, error }) {
@@ -10,7 +10,6 @@ function UserListScreen({ isLoading, error }) {
   const [fetchAgain, setFetchAgain] = useState(false);
 
   useEffect(() => {
-    // Fetch cart items from local storage
     const getAllUsers = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/users', {
@@ -38,6 +37,7 @@ function UserListScreen({ isLoading, error }) {
 
   const deleteHandler = async (e, userId) => {
     e.preventDefault();
+    // Function to delete a single user
     try {
       const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
         method: "DELETE",
@@ -66,10 +66,10 @@ function UserListScreen({ isLoading, error }) {
       <PageHeader title={"List Of User"} curPage={"List Of User"} />
       <h4>Users</h4>
       {isLoading ? (
-        <div>Loading...</div> // Replace Loader component with simple text
+        <div>Loading...</div>
       ) : error ? (
-        <div>Error: {error}</div> // Replace Message component with simple text
-      ) : dbUsers ? ( // Check if users array is defined
+        <div>Error: {error}</div> 
+      ) : dbUsers ? (
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
@@ -123,7 +123,7 @@ function UserListScreen({ isLoading, error }) {
           </tbody>
         </Table>
       ) : (
-        <div>No users found.</div> // Render a message if users array is empty or undefined
+        <div>No users found.</div>
       )}
     </div>
   );

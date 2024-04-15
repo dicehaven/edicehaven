@@ -49,7 +49,6 @@ const isUserAdmin = () => {
 
 }
 
-
 const getUserId = () => {
   if (typeof window === "undefined") {
     return false;

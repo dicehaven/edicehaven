@@ -7,9 +7,11 @@ import { useLocation, useNavigate } from "react-router-dom"
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // Callback function triggered when the order is created
+
+  const { PAYPAL_CLIENT_ID } = process.env;
+
   const handleCreateOrder = (data, actions) => {
-    // Perform any necessary actions to create the order
+    // Creation of order to be paid and sent to the PayPal API
     return actions.order.create({
       purchase_units: [
         {
@@ -21,9 +23,8 @@ const PaymentPage = () => {
     });
   };
 
-  // Callback function triggered when the payment is approved
   const handleApprovePayment = async (data, actions) => {
-    // Perform any necessary actions when the payment is approved
+    // Creation of orders when payment is approved
     const { orderID, payerID, paymentID, paymentSource } = data;
     try {
       const response = await fetch('http://localhost:5000/api/orders', {
@@ -55,7 +56,6 @@ const PaymentPage = () => {
     }
   };
 
-  // Callback function triggered when an error occurs during payment processing
   const handlePaymentError = (error) => {
     // Handle payment error
     console.error("An error occurred during payment:", error);
@@ -65,8 +65,7 @@ const PaymentPage = () => {
   return (
     <PayPalScriptProvider
       options={{
-        "client-id":
-          "AeKXJa2-zP8ct6wxzlNDr_kvurbYZe--rMJR1qRbEgX8Wx5EE_gjJm78JXAXzTCkTDsOuSpBTnqJxxPP",
+        "client-id": PAYPAL_CLIENT_ID,
         "currency": "CAD",
       }}
     >

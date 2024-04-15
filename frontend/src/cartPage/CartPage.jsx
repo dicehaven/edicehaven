@@ -9,10 +9,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    // Fetch cart items from local storage
-    // const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    // setCartItems(storedCartItems);
-
+    // Fetch cart items from the database
     const getProductsInCart = async () => {
       const userId = getUserId();
       if (userId) {
@@ -53,8 +50,6 @@ const CartPage = () => {
   const handleIncrease = (item) => {
     item.quantity += 1;
     setCartItems([...cartItems]);
-    // Update local storage with the new cart items
-    // localStorage.setItem("cart", JSON.stringify(cartItems));
   };
 
   // Handle quantity decrease
@@ -62,9 +57,6 @@ const CartPage = () => {
     if (item.quantity > 1) {
       item.quantity -= 1;
       setCartItems([...cartItems]);
-
-      // Update local storage with the new cart items
-      // localStorage.setItem("cart", JSON.stringify(cartItems));
     }
   };
 
@@ -77,14 +69,9 @@ const CartPage = () => {
     // Update the state with the new cart
     setCartItems(updatedCart);
     await handleRemoveFromCart({ _id: item.product._id, price: item.price });
-    // Update local storage with the updated cart
-    // updateLocalStorage(updatedCart);
+
   };
 
-  // Update local storage with the cart items
-  // const updateLocalStorage = (cart) => {
-  //   localStorage.setItem("cart", JSON.stringify(cart));
-  // };
 
   // Calculate the cart subtotal
   const cartSubtotal = cartItems.reduce((total, item) => {
@@ -229,9 +216,6 @@ const CartPage = () => {
                           placeholder="Postcode/ZIP"
                           className="cart-page-input-text"
                         />
-                        {/* <Link to="/payment">
-                          <button type="submit">Check out</button>
-                        </Link> */}
                       </div>
                     </div>
 

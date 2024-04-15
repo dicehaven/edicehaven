@@ -33,6 +33,7 @@ import RequireAdminRole from "./components/RequireAdminRole";
 import ProductAddScreen from "./admin/ProductAddScreen";
 import PaymentPage from "./paymentPage/PaymentPage";
 
+// Creation of routes
 const router = createBrowserRouter([
   {
     path: "/",

@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import logo from "../assets/images/bg-img/bgbg.jpg"
 import { authenticate } from "../helpers/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -13,12 +12,13 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  const desc = "Explore your own collections of boardgames!"
+
   // Function to handle htmlForm submission
   const handleSubmit = async (e) => {
 
     e.preventDefault();
     // Logic to handle account creation
-    // You can implement this logic based on your backend requirements
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -50,8 +50,6 @@ const Login = () => {
   const title = (
     <h2>Welcome Back</h2>
   )
-  const desc = "Explore your own collections of boardgames!"
-
 
   return (
     <div>

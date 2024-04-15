@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
 
 function ProductAddScreen() {
-  // Define state variables
   const navigate = useNavigate();
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -16,14 +15,11 @@ function ProductAddScreen() {
     countInStock: 0,
     description: "",
   })
-  const [loadingUpdate, setLoadingUpdate] = useState(false); // Define loadingUpdate state variable
-  const [loadingUpload, setLoadingUpload] = useState(false); // Define loadingUpload state variable
-  const [isLoading, setIsLoading] = useState(false); // Define isLoading state variable
-  const [error, setError] = useState(null); // Define error state variable
 
-  // Define submitHandler function
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    // Create new product
     try {
       const response = await fetch(`http://localhost:5000/api/product`, {
         method: "POST",
@@ -58,12 +54,6 @@ function ProductAddScreen() {
       <PageHeader title={"Edit Product"} curPage={"Edit Product"} />
       <div className="container">
         <h3>Create Product</h3>
-        {loadingUpdate && <div>Loading Update...</div>}
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
-        ) : (
           <Form onSubmit={submitHandler} className="m-3">
             <Form.Group controlId="name" className="mb-3">
               <Form.Label>Name</Form.Label>
@@ -98,7 +88,6 @@ function ProductAddScreen() {
                 <div>Preview</div>
                 {productInfo.image && <img src={productInfo.image} width={250} alt={`${productInfo.name} pic not available`} />}
               </div>
-              {loadingUpload && <div>Loading Upload...</div>}
             </Form.Group>
 
             <Form.Group controlId="brand" className="mb-3">
@@ -155,7 +144,6 @@ function ProductAddScreen() {
               Create
             </Button>
           </Form>
-        )}
     </div>
     </div >
   );

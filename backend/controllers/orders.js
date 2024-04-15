@@ -103,14 +103,13 @@ const deleteOrder = () => async (req, res) => {
 }
 
 const updateStatus = () => async (req, res) => {
-  const { orderId } = req.params; // Assuming the parameter is named 'orderId'
+  const { orderId } = req.params;
   const { status } = req.body;
 
   try {
     // Find the order by ID and update its status
     const updatedOrder = await OrderModel.findByIdAndUpdate(orderId, { status }, { new: true });
 
-    // Return a success response
     return res.status(200).json({
       success: true,
       message: "Order status updated successfully",
