@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DropdownItem from '../components/DropdownItem';
+import BASE_URL from '../config/index.ts';
 
 
 const title = (
@@ -35,7 +36,7 @@ const Banner = () => {
             const sortBy = 'name';
             const sortOrder = 'asc';
             try {
-                const response = await fetch(`http://localhost:5000/api/products?searchValue=${searchValue}&qCategory=${qCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}`, {
+                const response = await fetch(`${BASE_URL}/api/products?searchValue=${searchValue}&qCategory=${qCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

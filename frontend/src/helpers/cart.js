@@ -1,6 +1,7 @@
 // Cart functions
 
 import { getUserId, getUserToken } from "./auth";
+import BASE_URL from '../config/index.ts';
 
 
 const handleUpsertToCart = async (quantity, individualProduct, navigate, showAlert = true) => {
@@ -11,7 +12,7 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate, showAle
   }
 
   try {
-    const response = await fetch('http://localhost:5000/api/cart', {
+    const response = await fetch(`${BASE_URL}/api/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +47,7 @@ const handleUpsertToCart = async (quantity, individualProduct, navigate, showAle
 
 const handleRemoveFromCart = async (individualProduct, navigate) => {
   try {
-    const response = await fetch('http://localhost:5000/api/cart', {
+    const response = await fetch(`${BASE_URL}/api/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

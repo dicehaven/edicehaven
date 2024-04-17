@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { authenticate } from "../helpers/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import BASE_URL from '../config/index.ts'; 
 
 const Login = () => {
   // State variables htmlFor username and password
@@ -20,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     // Logic to handle account creation
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

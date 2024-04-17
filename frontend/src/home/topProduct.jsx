@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import BASE_URL from '../config/index.ts';
 
 const TopProduct = () => {
   const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -8,7 +9,7 @@ const TopProduct = () => {
   useEffect(() => {
     const getAllProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products?sortBy='rating'&sortOrder='desc'`, {
+        const response = await fetch(`${BASE_URL}/api/products?sortBy='rating'&sortOrder='desc'`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

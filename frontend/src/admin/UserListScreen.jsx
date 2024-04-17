@@ -4,6 +4,7 @@ import { Table, Button } from "react-bootstrap";
 import { FaCheck, FaTimes, FaEdit, FaTrash } from "react-icons/fa";
 import PageHeader from "../components/PageHeader"; 
 import { getUserToken } from "../helpers/auth";
+import BASE_URL from '../config/index.ts';
 
 function UserListScreen({ isLoading, error }) {
   const [dbUsers, setDbUsers] = useState([]);
@@ -12,7 +13,7 @@ function UserListScreen({ isLoading, error }) {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/users', {
+        const response = await fetch(`${BASE_URL}/api/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +40,7 @@ function UserListScreen({ isLoading, error }) {
     e.preventDefault();
     // Function to delete a single user
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import logo from "../assets/images/bg-img/bgbg.jpg"
 import { authenticate } from "../helpers/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import BASE_URL from '../config/index.ts';
 
 const Login = () => {
   // State variables for form fields
@@ -20,7 +21,7 @@ const Login = () => {
 
     // Creation of the user account
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

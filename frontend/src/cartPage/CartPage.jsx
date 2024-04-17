@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import delImgUrl from "../assets/images/shop/del.png";
 import { getUserId, getUserToken, isAuthenticated } from "../helpers/auth";
 import { handleRemoveFromCart, handleUpsertToCart } from "../helpers/cart";
+import BASE_URL from '../config/index.ts';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -15,7 +16,7 @@ const CartPage = () => {
       if (userId) {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/cart/${userId}`,
+            `${BASE_URL}/api/cart/${userId}`,
             {
               method: "GET",
               headers: {
