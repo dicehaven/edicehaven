@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
+import BASE_URL from '../config/index.ts';
 
 function ProductEditScreen() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function ProductEditScreen() {
     e.preventDefault();
     // Updates information from product
     try {
-      const response = await fetch(`http://localhost:5000/api/product/${location.state._id}`, {
+      const response = await fetch(`${BASE_URL}/api/product/${location.state._id}`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',

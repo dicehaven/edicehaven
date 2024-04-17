@@ -3,12 +3,11 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PageHeader from "../components/PageHeader";
 import { getUserId, getUserToken } from "../helpers/auth";
 import { useLocation, useNavigate } from "react-router-dom"
+import BASE_URL from '../config/index.ts'; 
 
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { PAYPAL_CLIENT_ID } = process.env;
 
   const handleCreateOrder = (data, actions) => {
     // Creation of order to be paid and sent to the PayPal API
@@ -27,7 +26,7 @@ const PaymentPage = () => {
     // Creation of orders when payment is approved
     const { orderID, payerID, paymentID, paymentSource } = data;
     try {
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch(`${BASE_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

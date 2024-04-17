@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getUserId, getUserToken, isAuthenticated } from "../helpers/auth";
 import PageHeader from "../components/PageHeader";
+import BASE_URL from '../config/index.ts'; 
+
 
 
 const Profile = () => {
@@ -9,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${getUserId()}`, {
+        const response = await fetch(`${BASE_URL}/api/users/${getUserId()}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -34,7 +36,7 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/update", {
+      const response = await fetch(`${BASE_URL}/api/users/update`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ const Profile = () => {
       }
 
     } catch (err) {
-      alert(err.messasge)
+      alert(err.message)
       console.log('this is the error', err);
     }
   };

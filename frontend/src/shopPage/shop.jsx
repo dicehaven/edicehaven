@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Product from "./product";
+import BASE_URL from '../config/index.ts'; 
 
 const searchAreaStyle = {
   width: "100%",
@@ -19,7 +20,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products?qCategory=${category}&sortBy=${sort.sortBy}&sortOrder=${sort.sortOrder}`, {
+        const response = await fetch(`${BASE_URL}/api/products?qCategory=${category}&sortBy=${sort.sortBy}&sortOrder=${sort.sortOrder}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

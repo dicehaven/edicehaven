@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
+import BASE_URL from '../config/index.ts';
 
 function UserEditScreen() {
   const location = useLocation();
@@ -15,7 +16,7 @@ function UserEditScreen() {
     e.preventDefault();
     // Function to handle form submission
     try {
-      const response = await fetch("http://localhost:5000/api/users/update", {
+      const response = await fetch(`${BASE_URL}/api/users/update`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',

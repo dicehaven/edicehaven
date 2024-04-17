@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserId } from "../helpers/auth";
 import { handleRemoveFromCart, handleUpsertToCart } from "../helpers/cart";
+import BASE_URL from '../config/index.ts';
 
 function IndividualProduct() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function IndividualProduct() {
     const fetchInitialData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/product/${id}`,
+          `${BASE_URL}/api/product/${id}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +43,7 @@ function IndividualProduct() {
       } else {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/cart/${userId}/product/${id}`,
+            `${BASE_URL}/cart/${userId}/product/${id}`,
             {
               method: "GET",
               headers: {
@@ -99,7 +100,7 @@ function IndividualProduct() {
   const submitReview = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/product/${id}/reviews`,
+        `api/product/${id}/reviews`,
         {
           method: "POST",
           headers: {

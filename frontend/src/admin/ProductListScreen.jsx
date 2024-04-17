@@ -5,6 +5,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 import { getUserToken } from "../helpers/auth";
+import BASE_URL from '../config/index.ts';
 
 function ProductListScreen() {
   const [data, setData] = useState({ products: [] });
@@ -12,27 +13,27 @@ function ProductListScreen() {
 
   useEffect(() => {
     // Fetch cart items from database
-    const getAllProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/products', {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${getUserToken()}`
-          },
-        });
+        const getAllProducts = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/products`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${getUserToken()}`
+                    },
+                });
 
-        const data = await response.json();
+                const data = await response.json();
 
-        if (data && data.success) {
-          setData((prevState) => ({ ...prevState, products: data.products }));
-        }
-      }
-      catch (err) {
-        alert(err.message)
-      }
+                if (data && data.success) {
+                    setData((prevState) => ({ ...prevState, products: data.products }));
+                }
+            }
+            catch (err) {
+                alert(err.message)
+            }
 
-    };
+        };
 
     getAllProducts();
 
@@ -42,7 +43,7 @@ function ProductListScreen() {
     e.preventDefault();
     // Delete product from database
     try {
-      const response = await fetch(`http://localhost:5000/api/product/${productId}`, {
+      const response = await fetch(`${BASE_URL}/api/product/${productId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',

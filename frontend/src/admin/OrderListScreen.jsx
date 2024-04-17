@@ -3,6 +3,7 @@ import { Form, Button, Table } from "react-bootstrap";
 import PageHeader from "../components/PageHeader";
 import { FaTrash } from "react-icons/fa";
 import { getUserToken } from "../helpers/auth";
+import BASE_URL from '../config/index.ts';
 
 function OrderListScreen() {
   const [orders, setOrders] = useState([]);
@@ -11,7 +12,7 @@ function OrderListScreen() {
   useEffect(() => {
     const getAllOrders = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/orders', {
+        const response = await fetch(`${BASE_URL}/api/orders`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +36,7 @@ function OrderListScreen() {
   const deleteHandler = async (e, orderId) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+      const response = await fetch(`${BASE_URL}/api/orders/${orderId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ function OrderListScreen() {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/updateStatus`, {
+      const response = await fetch(`${BASE_URL}/api/orders/${orderId}/updateStatus`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
