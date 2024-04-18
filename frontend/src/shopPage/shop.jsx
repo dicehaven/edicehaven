@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Product from "./product";
 import BASE_URL from '../config/index.ts'; 
 
+console.log('THIS IS THE BASE', BASE_URL);
+
 const searchAreaStyle = {
   width: "100%",
   display: "flex",
