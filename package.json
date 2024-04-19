@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "Queenie",
   "license": "MIT",
@@ -18,5 +19,8 @@
     "mongoose": "^8.2.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
