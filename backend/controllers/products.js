@@ -32,7 +32,6 @@ const updateProduct = () => async (req, res) => {
       updatedProduct
     });
   } catch (err) {
-    console.log('err', err);
     return res.status(500).json({
       success: true,
       message: err.message

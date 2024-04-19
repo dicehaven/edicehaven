@@ -76,8 +76,6 @@ const postCompleteOrderAndPayment = () => async (req, res) => {
     // Abort the transaction if there's a failure
     await session.abortTransaction();
 
-    console.log('err', err);
-
     // Return an error response
     return res.status(500).json({
       success: false,
